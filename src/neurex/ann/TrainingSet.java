@@ -1,9 +1,13 @@
 package neurex.ann;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class TrainingSet {
+public class TrainingSet implements Serializable {
 	
+	@Serial
+	private static final long serialVersionUID = 1L;
 	public Pattern[] patterns;
 	
 	public TrainingSet() {
@@ -19,6 +23,7 @@ public class TrainingSet {
 	}
 	
 	public void addPattern(Pattern pattern) {
+		//noinspection MismatchedReadAndWriteOfArray
 		Pattern[] newPatterns = Arrays.copyOf(patterns,patterns.length+1);
 		newPatterns[patterns.length] = pattern;
 

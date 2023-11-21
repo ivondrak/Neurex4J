@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d6c6e31-16d6-46dc-b3b6-5ec856ca7b9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Neurex.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    <list default="true" id="3d6c6e31-16d6-46dc-b3b6-5ec856ca7b9f" name="Changes" comment="Serialization added">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/ann/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/ann/Attribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/ann/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/ann/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/ann/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/ann/Layer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/ann/NeuralNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/ann/NeuralNet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/ann/Neuron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/ann/Neuron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/ann/Pattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/ann/Pattern.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/ann/TrainingSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/ann/TrainingSet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,18 +30,23 @@
   "associatedIndex": 1
 }]]></component>
   <component name="ProjectId" id="2YV5N6nNJrAa93OqtKNrYb23MSY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "onboarding.tips.debug.path": "C:/Users/ivovo/IdeaProjects/neurex/src/Main.java"
+    "onboarding.tips.debug.path": "C:/Users/ivovo/IdeaProjects/neurex/src/Main.java",
+    "settings.editor.selected.configurable": "settings.sync"
   }
 }]]></component>
   <component name="RunManager">
@@ -59,6 +67,59 @@
       <option name="presentableId" value="Default" />
       <updated>1700597863596</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1700600394684</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700600394684</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="user">
+                    <value>
+                      <list>
+                        <option value="*" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="Serialization added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Serialization added" />
   </component>
 </project>

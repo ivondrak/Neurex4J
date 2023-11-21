@@ -1,7 +1,12 @@
 package neurex.ann;
 
-public class NeuralNet {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class NeuralNet implements Serializable {
 	
+	@Serial
+	private static final long serialVersionUID = 1L;
 	public TrainingSet trainingSet;
 	public Attribute[][] attributes;
 	public Layer[] layers;
@@ -52,7 +57,7 @@ public class NeuralNet {
 		this.trainingSet = training;
 		this.inputSize  = attributes[0].length;
 		this.outputSize = attributes[1].length;
-		this.innerSize = (inputSize > outputSize) ? inputSize : outputSize;
+		this.innerSize = Math.max(inputSize, outputSize);
 		this.hidden = hidden;
 		layers = new Layer[hidden+1];
 		neurons = new Neuron[hidden+2][];
@@ -97,7 +102,8 @@ public class NeuralNet {
 	}
 	
 	public double[] run(double[] input) {
-		double output[] = new double[inputSize];
+		//noinspection MismatchedReadAndWriteOfArray
+		double[] output = new double[outputSize];
 		for (int i=0; i < inputSize; i++) {
 			neurons[0][i].setState(input[i]);
 		}
@@ -107,7 +113,7 @@ public class NeuralNet {
 		for (int i=0; i < outputSize; i++) {
 			output[i] = neurons[hidden+1][i].excitation();
 		}
-		return output();
+		return output;
 	}
 	
 	public void learn(double eta, int cycles) {

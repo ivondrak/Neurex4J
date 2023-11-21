@@ -1,6 +1,11 @@
 package neurex.ann;
 
-public class Layer {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Layer implements Serializable {
+	@Serial
+	private static final long serialVersionUID = 1L;
 	public Connection[][] connections;
 	public Neuron[] input;
 	public Neuron[] output;
@@ -19,19 +24,19 @@ public class Layer {
 	}
 	
 	public void transfer() {
-		for (int i=0; i < output.length; i++) {
-			output[i].reset();
-		}
-		
-		for (int i=0; i < connections.length; i++) {
-			for (int j=0; j < connections[i].length; j++) {
-				connections[i][j].transfer();
-			}
-		}
+        for (Neuron neuron : output) {
+            neuron.reset();
+        }
 
-		for (int i=0; i < output.length; i++) {
-			output[i].activate();
-		}
+        for (Connection[] connection : connections) {
+            for (Connection value : connection) {
+                value.transfer();
+            }
+        }
+
+        for (Neuron neuron : output) {
+            neuron.activate();
+        }
 
 	}
 	
@@ -52,28 +57,26 @@ public class Layer {
 	
 	public void adapt(double eta) {
 		this.errorPropagation();
-		for (int i=0; i < connections.length;i++) {
-			for (int j=0; j < connections[i].length; j++) {
-				Connection con = connections[i][j];
-				double delta = con.second.delta;
-				double y = con.second.excitation();
-				double xi = con.first.excitation();
-				double changeW = -1*eta*delta*y*(1-y)*xi;
-				con.adapt(changeW);
-			}
-		}
-		for (int i=0; i<output.length; i++) {
-			Neuron neuron = output[i];
-			double delta = neuron.delta;
-			double slope = neuron.slope;
-			double threshold = neuron.threshold;
-			double potential = neuron.potential;
-			double y = neuron.excitation();
-			double changeSlope = -1*eta*delta*y*(1-y)*(potential-threshold);
-			double changeThreshold = -1*eta*delta*y*(1-y)*(-1*slope);
-			neuron.adaptSlope(changeSlope);
-			neuron.adaptThreshold(changeThreshold);
-		}
+        for (Connection[] connection : connections) {
+            for (Connection con : connection) {
+                double delta = con.second.delta;
+                double y = con.second.excitation();
+                double xi = con.first.excitation();
+                double changeW = -1 * eta * delta * y * (1 - y) * xi;
+                con.adapt(changeW);
+            }
+        }
+        for (Neuron neuron : output) {
+            double delta = neuron.delta;
+            double slope = neuron.slope;
+            double threshold = neuron.threshold;
+            double potential = neuron.potential;
+            double y = neuron.excitation();
+            double changeSlope = -1 * eta * delta * y * (1 - y) * (potential - threshold);
+            double changeThreshold = -1 * eta * delta * y * (1 - y) * (-1 * slope);
+            neuron.adaptSlope(changeSlope);
+            neuron.adaptThreshold(changeThreshold);
+        }
 	}
 	
 	

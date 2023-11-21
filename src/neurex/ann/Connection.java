@@ -1,7 +1,12 @@
 package neurex.ann;
 
-public class Connection {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Connection implements Serializable {
 	
+	@Serial
+	private static final long serialVersionUID = 1L;
 	Neuron first;
 	Neuron second;
 	double weight = Math.random()/3.0;

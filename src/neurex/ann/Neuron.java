@@ -1,8 +1,13 @@
 package neurex.ann;
 
-public class Neuron {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Neuron implements Serializable {
 	
-	double state = 0.0;
+	@Serial
+	private static final long serialVersionUID = 1L;
+	double state;
 	double potential = 0.0;
 	double delta = 0.0;
 	double slope = 1.0;

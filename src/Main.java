@@ -5,6 +5,8 @@ import neurex.ann.Attribute;
 import neurex.ann.NeuralNet;
 import neurex.ann.Pattern;
 import neurex.ann.TrainingSet;
+import neurex.gui.OpenFileDialog;
+import neurex.gui.SaveFileDialog;
 
 public class Main {
     public static void main(String[] args) {
@@ -93,5 +95,11 @@ public class Main {
         System.out.println("Total error[%]: "+String.format("%.2f",error[0]));
         System.out.println("Worst pattern error[%]: "+String.format("%.2f",error[1]));
         System.out.println("Worst pattern index: "+error[2]);
+
+        SaveFileDialog toSave = new SaveFileDialog();
+        toSave.saveANN(ann);
+        OpenFileDialog toOpen = new OpenFileDialog();
+        NeuralNet annLoaded = toOpen.openANN();
+        annLoaded.dump();
     }
 }
