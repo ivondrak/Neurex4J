@@ -94,8 +94,7 @@ public class MainFrame extends JFrame {
     }
 
     private void createViewPanels() {
-        JPanel initPanel = new JPanel();
-        initPanel.add(new JLabel("Init View"));
+        JPanel initPanel = new InitPanel(this);
         mainPanel.add(initPanel, "Init");
 
         JPanel topologyPanel = new JPanel();
