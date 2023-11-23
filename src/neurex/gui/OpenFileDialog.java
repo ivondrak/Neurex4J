@@ -6,9 +6,8 @@ import java.io.*;
 
 public class OpenFileDialog {
 	
-    public NeuralNet openANN() {
+    public void openANN(MainFrame main) {
 
-        NeuralNet ann = null;
         JFileChooser fileChooser = new JFileChooser();
         //fileChooser.setCurrentDirectory(new File(System.getProperty(".")));
         fileChooser.setCurrentDirectory(new File("."));
@@ -20,13 +19,12 @@ public class OpenFileDialog {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToOpen = fileChooser.getSelectedFile();
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileToOpen))) {
-                ann = (NeuralNet) ois.readObject();
-                System.out.println("Object read from: " + fileToOpen.getAbsolutePath());
+                main.ann = (NeuralNet) ois.readObject();
+                main.filename = fileToOpen.getAbsolutePath();
             } catch (IOException | ClassNotFoundException e) {
                 //noinspection CallToPrintStackTrace
                 e.printStackTrace();
             }
         }
-        return ann;
     }
 }

@@ -5,14 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d6c6e31-16d6-46dc-b3b6-5ec856ca7b9f" name="Changes" comment="Serialization added">
-      <change afterPath="$PROJECT_DIR$/src/neurex/gui/OpenFileDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/neurex/gui/SaveFileDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/undefined.neux" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neurex.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/neurex/gui/CredentialsPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/neurex/gui/MainFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.neux" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test2.neux" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test3.neux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/OpenFileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/OpenFileDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/SaveFileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/SaveFileDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/undefined.neux" beforeDir="false" afterPath="$PROJECT_DIR$/undefined.neux" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -20,9 +36,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2YV5N6nNJrAa93OqtKNrYb23MSY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -37,13 +53,40 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extract.method.default.visibility": "private",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "onboarding.tips.debug.path": "C:/Users/ivovo/IdeaProjects/neurex/src/Main.java",
     "settings.editor.selected.configurable": "settings.sync"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Neurex">
+    <configuration name="CredentialsPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="neurex.gui.CredentialsPanel" />
+      <module name="Neurex" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="neurex.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="neurex.gui.MainFrame" />
+      <module name="Neurex" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="neurex.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Neurex" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Neurex" />
@@ -51,6 +94,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CredentialsPanel" />
+        <item itemvalue="Application.MainFrame" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -123,5 +172,16 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Serialization added" />
     <option name="LAST_COMMIT_MESSAGE" value="Serialization added" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/neurex/gui/OpenFileDialog.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
