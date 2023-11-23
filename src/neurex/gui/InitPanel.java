@@ -108,13 +108,13 @@ public class InitPanel extends JPanel {
         Attribute[] inputAttributes = new Attribute[numberOfInputs];
         for (int i=0; i < numberOfInputs; i++) {
             Attribute attribute = new Attribute();
-            attribute.attribute = "Input "+"#"+String.valueOf(i);
+            attribute.attribute = "Input "+"#"+i;
             inputAttributes[i] = attribute;
         }
         Attribute[] outputAttributes = new Attribute[numberOfOutputs];
         for (int i=0; i < numberOfOutputs; i++) {
             Attribute attribute = new Attribute();
-            attribute.attribute = "Output "+"#"+String.valueOf(i);
+            attribute.attribute = "Output "+"#"+i;
             outputAttributes[i] = attribute;
         }
         Attribute[][] attributes = {inputAttributes, outputAttributes};
