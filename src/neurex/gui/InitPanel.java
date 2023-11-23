@@ -22,7 +22,6 @@ public class InitPanel extends JPanel {
         subtitleLabel.setFont(new Font(subtitleLabel.getFont().getName(), Font.BOLD, 14));
 
         JPanel centerPanel = new JPanel(new GridBagLayout());
-        //noinspection WriteOnlyObject
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.CENTER;
