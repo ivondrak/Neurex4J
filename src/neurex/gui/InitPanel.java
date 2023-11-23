@@ -1,7 +1,12 @@
 package neurex.gui;
+
+import neurex.ann.Attribute;
+import neurex.ann.NeuralNet;
+import neurex.ann.Pattern;
+import neurex.ann.TrainingSet;
+
 import javax.swing.*;
 import java.awt.*;
-import neurex.ann.*;
 
 public class InitPanel extends JPanel {
     MainFrame main;

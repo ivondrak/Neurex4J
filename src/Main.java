@@ -97,9 +97,8 @@ public class Main {
         NeuralNet ann = new NeuralNet(attributes, training, 2);
 
         SwingUtilities.invokeLater(() -> {
-            MainFrame mainFrame = new MainFrame();
+            MainFrame mainFrame = new MainFrame(ann);
             mainFrame.setVisible(true);
-            mainFrame.ann = ann;
             mainFrame. cardLayout.show(mainFrame.mainPanel, "Credentials");
         });
     }

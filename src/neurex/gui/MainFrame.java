@@ -3,8 +3,6 @@ import neurex.ann.NeuralNet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +17,8 @@ public class MainFrame extends JFrame {
     public CardLayout cardLayout = new CardLayout();
     public JPanel mainPanel = new JPanel(cardLayout);
 
-    public MainFrame() {
+    public MainFrame(NeuralNet ann) {
+        this.ann = ann;
         createMenuBar();
         createViewPanels();
         setTitle("ANN: "+filename);
@@ -97,8 +96,7 @@ public class MainFrame extends JFrame {
         JPanel initPanel = new InitPanel(this);
         mainPanel.add(initPanel, "Init");
 
-        JPanel topologyPanel = new JPanel();
-        topologyPanel.add(new JLabel("Topology View"));
+        JPanel topologyPanel = new TopologyPanel(this);
         mainPanel.add(topologyPanel, "Topology");
 
         JPanel attributesPanel = new JPanel();
