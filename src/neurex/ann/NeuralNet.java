@@ -14,6 +14,7 @@ public class NeuralNet implements Serializable {
 	public int inputSize, outputSize, innerSize, hidden;
 	
 
+	@SuppressWarnings("unused")
 	public NeuralNet() {
 		// TODO Auto-generated constructor stub
 		inputSize = 1;
@@ -85,6 +86,7 @@ public class NeuralNet implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public double[] input() {
 		double[] vector = new double[inputSize];
 		for (int i=0; i < inputSize; i++) {
@@ -93,6 +95,7 @@ public class NeuralNet implements Serializable {
 		return vector;
 	}
 	
+	@SuppressWarnings("unused")
 	public double[] output() {
 		double[] vector = new double[outputSize];
 		for (int i=0; i < outputSize; i++) {
@@ -102,7 +105,6 @@ public class NeuralNet implements Serializable {
 	}
 	
 	public double[] run(double[] input) {
-		//noinspection MismatchedReadAndWriteOfArray
 		double[] output = new double[outputSize];
 		for (int i=0; i < inputSize; i++) {
 			neurons[0][i].setState(input[i]);
@@ -151,7 +153,7 @@ public class NeuralNet implements Serializable {
 			}
 		}
 		error = (Math.sqrt(error)/n)*100/outputSize;
-		maxError = (Math.sqrt(maxError))*100/outputSize;
+		maxError = (Math.sqrt(maxError))*100;
 		errorVector[0] = error;
 		errorVector[1] = maxError;
 		errorVector[2] = worst;
@@ -159,6 +161,7 @@ public class NeuralNet implements Serializable {
 	}
 		
 	
+	@SuppressWarnings("unused")
 	public void dump() {
 		for (int i=0; i < inputSize; i++) {
 			String attribute = attributes[0][i].attribute;
