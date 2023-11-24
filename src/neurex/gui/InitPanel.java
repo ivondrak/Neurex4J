@@ -8,7 +8,7 @@ import neurex.ann.TrainingSet;
 import javax.swing.*;
 import java.awt.*;
 
-public class InitPanel extends JPanel {
+public class InitPanel extends JPanel implements ANNUpdateListener {
     MainFrame main;
     private JTextField numberOfInputsField;
     private JTextField numberOfOutputsField;
@@ -17,6 +17,7 @@ public class InitPanel extends JPanel {
 
     public InitPanel(MainFrame main) {
         this.main = main;
+        this.main.addUpdateListener(this);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel titleLabel = new JLabel("Initialize New Neural Net");
@@ -144,7 +145,14 @@ public class InitPanel extends JPanel {
         main.ann = new NeuralNet(attributes, trainingSet, hiddenLayers);
         main.filename = "undefined.neux";
         main.ann.dump();
+        main.changeModel();
         main.cardLayout.show(main.mainPanel, "Topology");
+    }
+
+    public void onANNUpdated() {
+        numberOfInputsField.setText("1");
+        numberOfOutputsField.setText("1");
+        hiddenLayersField.setText("2");
     }
 
 }

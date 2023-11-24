@@ -3,11 +3,16 @@ package neurex.gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class TopologyPanel extends JPanel {
+public class TopologyPanel extends JPanel implements ANNUpdateListener {
     MainFrame main;
+
+    JTextField topologyLabel;
+    JTextField patternsLabel;
+    JTextField errorLabel;
 
     public TopologyPanel(MainFrame main) {
         this.main = main;
+        this.main.addUpdateListener(this);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel titleLabel = new JLabel("Neural Net Topology");
@@ -48,14 +53,21 @@ public class TopologyPanel extends JPanel {
             int num = main.ann.neurons[i+1].length;
             topology.append(" -> ").append(num);
         }
-        panel.add(new JLabel(String.valueOf(topology)));
+        topologyLabel = new JTextField(12);
+        topologyLabel.setText(String.valueOf(topology));
+        topologyLabel.setEnabled(false);
+        //topologyLabel = new JLabel(String.valueOf(topology));
+        panel.add(topologyLabel);
         return panel;
     }
 
     private JPanel createPatternsPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.add(new JLabel("Number of Patterns"));
-        panel.add(new JLabel(String.valueOf(main.ann.trainingSet.patterns.length)));
+        patternsLabel = new JTextField(12);
+        patternsLabel.setText(String.valueOf(main.ann.trainingSet.patterns.length));
+        patternsLabel.setEnabled(false);
+        panel.add(patternsLabel);
         return panel;
     }
 
@@ -64,7 +76,24 @@ public class TopologyPanel extends JPanel {
         panel.add(new JLabel("Mean Squared Error"));
         double error = (double) main.ann.meanSquaredError()[0];
         float rounded = Math.round(error * 100.0) / 100f;
-        panel.add(new JLabel(String.valueOf(rounded)));
+        errorLabel = new JTextField(12);
+        errorLabel.setText(String.valueOf(rounded));
+        errorLabel.setEnabled(false);
+        panel.add(errorLabel);
         return panel;
+    }
+
+    public void onANNUpdated() {
+        StringBuilder topology;
+        topology = new StringBuilder(String.valueOf(main.ann.inputSize));
+        for (int i=0; i < (main.ann.hidden + 1); i++) {
+            int num = main.ann.neurons[i+1].length;
+            topology.append(" -> ").append(num);
+        }
+        topologyLabel.setText(String.valueOf(topology));
+        patternsLabel.setText(String.valueOf(main.ann.trainingSet.patterns.length));
+        double error = (double) main.ann.meanSquaredError()[0];
+        float rounded = Math.round(error * 100.0) / 100f;
+        errorLabel.setText(String.valueOf(rounded));
     }
 }

@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.List;
 
 public class MainFrame extends JFrame {
 
@@ -16,6 +18,8 @@ public class MainFrame extends JFrame {
 
     public CardLayout cardLayout = new CardLayout();
     public JPanel mainPanel = new JPanel(cardLayout);
+
+    private final List<ANNUpdateListener> listeners = new ArrayList<>();
 
     public MainFrame(NeuralNet ann) {
         this.ann = ann;
@@ -67,7 +71,10 @@ public class MainFrame extends JFrame {
         helpMenu.add(credentialsItem);
 
         // Add action listeners for menu items (example actions)
-        newItem.addActionListener(e -> cardLayout.show(mainPanel, "Init"));
+        newItem.addActionListener(e -> {
+            changeModel();
+            cardLayout.show(mainPanel, "Init");
+        });
         openItem.addActionListener(e -> openFile());
         saveItem.addActionListener(e -> save());
         saveAsItem.addActionListener(e -> {
@@ -76,10 +83,16 @@ public class MainFrame extends JFrame {
             setTitle("ANN: "+filename);
         });
         exitItem.addActionListener(e -> System.exit(0)); // This will exit the application
-        topologyItem.addActionListener(e -> cardLayout.show(mainPanel, "Topology"));
+        topologyItem.addActionListener(e -> {
+            changeModel();
+            cardLayout.show(mainPanel, "Topology");
+        });
         attributesItem.addActionListener(e -> cardLayout.show(mainPanel, "Attributes"));
         patternItem.addActionListener(e -> cardLayout.show(mainPanel, "Patterns"));
-        learningItem.addActionListener(e -> cardLayout.show(mainPanel, "Learning"));
+        learningItem.addActionListener(e -> {
+            changeModel();
+            cardLayout.show(mainPanel, "Learning");
+        });
         consultItem.addActionListener(e -> cardLayout.show(mainPanel, "Consult"));
         credentialsItem.addActionListener(e -> cardLayout.show(mainPanel, "Credentials"));
 
@@ -107,8 +120,7 @@ public class MainFrame extends JFrame {
         patternPanel.add(new JLabel("Pattern View"));
         mainPanel.add(patternPanel, "Patterns");
 
-        JPanel learningPanel = new JPanel();
-        learningPanel.add(new JLabel("Learning View"));
+        JPanel learningPanel = new LearningPanel(this);
         mainPanel.add(learningPanel, "Learning");
 
         JPanel consultPanel = new JPanel();
@@ -123,6 +135,7 @@ public class MainFrame extends JFrame {
         OpenFileDialog toOpen = new OpenFileDialog();
         toOpen.openANN(this);
         setTitle("ANN: "+filename);
+        changeModel();
     }
 
     void save() {
@@ -141,6 +154,24 @@ public class MainFrame extends JFrame {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void addUpdateListener(ANNUpdateListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeUpdateListener(ANNUpdateListener listener) {
+        listeners.remove(listener);
+    }
+
+    private void notifyListeners() {
+        for (ANNUpdateListener listener : listeners) {
+            listener.onANNUpdated();
+        }
+    }
+
+    public void changeModel() {
+        notifyListeners();
     }
 }
 
