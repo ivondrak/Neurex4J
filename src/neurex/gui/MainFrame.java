@@ -93,7 +93,10 @@ public class MainFrame extends JFrame {
             changeModel();
             cardLayout.show(mainPanel, "Learning");
         });
-        consultItem.addActionListener(e -> cardLayout.show(mainPanel, "Consult"));
+        consultItem.addActionListener(e -> {
+            changeModel();
+            cardLayout.show(mainPanel, "Consult");
+        });
         credentialsItem.addActionListener(e -> cardLayout.show(mainPanel, "Credentials"));
 
         // Add menus to menu bar
@@ -123,8 +126,7 @@ public class MainFrame extends JFrame {
         JPanel learningPanel = new LearningPanel(this);
         mainPanel.add(learningPanel, "Learning");
 
-        JPanel consultPanel = new JPanel();
-        consultPanel.add(new JLabel("Consult View"));
+        JPanel consultPanel = new ConsultPanel(this);
         mainPanel.add(consultPanel, "Consult");
 
         JPanel credentialPanel = new CredentialsPanel();
