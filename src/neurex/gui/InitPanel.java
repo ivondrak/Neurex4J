@@ -141,7 +141,6 @@ public class InitPanel extends JPanel implements ANNUpdateListener {
             patterns[i] = new Pattern(data[i][0], data[i][1]);
         }
         TrainingSet trainingSet = new TrainingSet(patterns);
-        trainingSet.dump();
         main.ann = new NeuralNet(attributes, trainingSet, hiddenLayers);
         main.filename = "undefined.neux";
 
