@@ -37,7 +37,7 @@ public class ValueEditDialog extends JDialog {
 
         panel.add(attributeField);
         panel.add(valueField);
-        panel.add(new JLabel(""));
+        panel.add(new JLabel("Set the value of the fact:"));
         panel.add(slider);
 
         JButton okButton = new JButton("OK");
@@ -56,7 +56,7 @@ public class ValueEditDialog extends JDialog {
 
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
         add(panel);
-        setSize(400,200);
+        setSize(400,170);
         setResizable(false);
         setLocationRelativeTo(parent);
         this.getRootPane().setDefaultButton(okButton);
