@@ -8,8 +8,6 @@ import java.awt.*;
 
 public class ValueEditDialog extends JDialog {
     public AttributePair pair;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final JLabel attributeField;
     private final JLabel valueField;
     private final JSlider slider;
     private boolean confirmed = false;
@@ -21,7 +19,7 @@ public class ValueEditDialog extends JDialog {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
 
-        attributeField = new JLabel(pair.attribute.attribute);
+        JLabel attributeField = new JLabel(pair.attribute.attribute);
         double realValue = this.pair.attribute.minValue + (this.pair.attribute.maxValue - this.pair.attribute.minValue) * this.pair.value;
         double rounded = Math.round(realValue * 100.0) / 100.0;
         valueField = new JLabel(String.valueOf(rounded));
