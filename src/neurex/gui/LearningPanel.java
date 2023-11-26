@@ -80,6 +80,8 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
         add(titleLabel);
         add(centerPanel);
         add(Box.createVerticalStrut(250));
+
+        this.main.getRootPane().setDefaultButton(learnButton);
     }
 
     private JPanel createLearningCoeffPanel() {

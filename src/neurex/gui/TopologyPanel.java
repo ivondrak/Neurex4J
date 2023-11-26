@@ -75,7 +75,7 @@ public class TopologyPanel extends JPanel implements ANNUpdateListener {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.add(new JLabel("Mean Squared Error"));
         double error = (double) main.ann.meanSquaredError()[0];
-        float rounded = Math.round(error * 100.0) / 100f;
+        double rounded = Math.round(error * 100.0) / 100.0;
         errorLabel = new JTextField(12);
         errorLabel.setText(String.valueOf(rounded));
         errorLabel.setEnabled(false);

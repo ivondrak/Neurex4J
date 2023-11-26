@@ -55,6 +55,7 @@ public class InitPanel extends JPanel implements ANNUpdateListener {
         add(centerPanel);
         add(Box.createVerticalStrut(250));
 
+        this.main.getRootPane().setDefaultButton(initButton);
     }
 
     private JPanel createInputPanel(String label) {
