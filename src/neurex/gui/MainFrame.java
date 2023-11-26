@@ -87,7 +87,10 @@ public class MainFrame extends JFrame {
             changeModel();
             cardLayout.show(mainPanel, "Topology");
         });
-        attributesItem.addActionListener(e -> cardLayout.show(mainPanel, "Attributes"));
+        attributesItem.addActionListener(e -> {
+            changeModel();
+            cardLayout.show(mainPanel, "Attributes");
+        });
         patternItem.addActionListener(e -> cardLayout.show(mainPanel, "Patterns"));
         learningItem.addActionListener(e -> {
             changeModel();
@@ -115,8 +118,7 @@ public class MainFrame extends JFrame {
         JPanel topologyPanel = new TopologyPanel(this);
         mainPanel.add(topologyPanel, "Topology");
 
-        JPanel attributesPanel = new JPanel();
-        attributesPanel.add(new JLabel("Attributes View"));
+        JPanel attributesPanel = new AttributesPanel(this);
         mainPanel.add(attributesPanel, "Attributes");
 
         JPanel patternPanel = new JPanel();
@@ -162,6 +164,7 @@ public class MainFrame extends JFrame {
         listeners.add(listener);
     }
 
+    @SuppressWarnings("unused")
     public void removeUpdateListener(ANNUpdateListener listener) {
         listeners.remove(listener);
     }

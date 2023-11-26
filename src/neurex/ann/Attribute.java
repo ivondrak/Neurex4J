@@ -23,4 +23,8 @@ public class Attribute implements Serializable {
 		this.maxValue = maxValue;
 	}
 
+	public String toString() {
+		return attribute;
+	}
+
 }
