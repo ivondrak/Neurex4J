@@ -17,10 +17,12 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
         JPanel centerPanel = new JPanel(new GridBagLayout());
+        //noinspection WriteOnlyObject
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
+
 
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(titleLabel);
