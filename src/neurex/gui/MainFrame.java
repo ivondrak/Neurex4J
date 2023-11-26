@@ -162,6 +162,7 @@ public class MainFrame extends JFrame {
         listeners.add(listener);
     }
 
+    @SuppressWarnings("unused")
     public void removeUpdateListener(ANNUpdateListener listener) {
         listeners.remove(listener);
     }
