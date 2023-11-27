@@ -61,13 +61,16 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         attributesPanel.add(inputScrollPanel);
         attributesPanel.add(outputScrollPanel);
 
-        JButton runButton = new JButton(">>> Run >>>");
-        runButton.addActionListener(e -> consult());
+        JButton runButton = new JButton("Reset Input");
+        runButton.addActionListener(e -> {
+            updateInputList();
+            consult();
+        });
         JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
         separator.setPreferredSize(new Dimension(550, 10));
 
         updateInputList();
-        updateOutputList();
+        consult();
 
         centerPanel.add(attributesPanel, gbc);
         centerPanel.add(separator, gbc);
@@ -88,7 +91,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         });
 
 
-        this.main.getRootPane().setDefaultButton(runButton);
+        //this.main.getRootPane().setDefaultButton(runButton);
 
     }
 
@@ -153,12 +156,9 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
 
     private void updateInputList() {
         inputListModel.clear();
-        int index = 0;
-        double[] input = main.ann.input();
         for (Attribute attribute : main.ann.attributes[0]) {
-            AttributePair pair = new AttributePair(attribute, input[index]);
+            AttributePair pair = new AttributePair(attribute, 0.0);
             inputListModel.addElement(pair);
-            index += 1;
         }
     }
 
@@ -181,12 +181,13 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
 
             if (editDialog.isConfirmed()) {
                 inputListModel.set(index, editDialog.getAttributePair());
+                consult();
             }
         }
     }
 
     public void onANNUpdated() {
         updateInputList();
-        updateOutputList();
+        consult();
     }
 }
