@@ -88,7 +88,7 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
             updateOutputList();
         });
         JButton removeButton = new JButton("Remove Pattern");
-        addButton.addActionListener(e -> {
+        removeButton.addActionListener(e -> {
             removePattern();
             updateInputList();
             updateOutputList();
@@ -203,11 +203,23 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
     }
 
     private void addPattern() {
-
+        main.ann.trainingSet.addPattern();
+        slider.setMaximum(main.ann.trainingSet.patterns.length-1);
+        slider.setValue(main.ann.trainingSet.patterns.length-1);
+        int index = slider.getValue();
+        indexLabel.setText(String.valueOf(index+1));
     }
 
     private void removePattern() {
-
+        if (slider.getMaximum() > 1) {
+            int index = slider.getValue();
+            main.ann.trainingSet.deleteAt(index);
+            slider.setMaximum(main.ann.trainingSet.patterns.length - 1);
+            slider.setValue(0);
+            indexLabel.setText(String.valueOf(1));
+        } else {
+            JOptionPane.showMessageDialog(null, "Number of patterns must be bigger than 2.", "Delete Pattern Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void editInput(int index) {
