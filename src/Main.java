@@ -11,85 +11,22 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        Attribute[][] attributes = getAttributes();
-        double[][][] data = {
-                {{0.0, 1.0, 1.0, 0.2, 0.0},{0.0, 0.0, 1.0}},
-                {{1.0, 1.0, 1.0, 1.0, 0.0},{0.0, 1.0, 0.0}},
-                {{0.5, 1.0, 0.0, 1.0, 1.0},{1.0, 0.0, 0.0}},
-        };
-
-        Pattern[] patterns = new Pattern[3];
-        for (int i=0; i < patterns.length; i++) {
-            patterns[i] = new Pattern(data[i][0], data[i][1]);
+        try {
+            // Set Nimbus Look and Feel
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("".equals(info.getName())) { //Metal, Nimbus, Aqua, Windows
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // If Nimbus is not available, fall back to the default Look and Feel.
+            try {
+                UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            } catch (Exception ex) {
+                // Handle exception
+            }
         }
-
-        TrainingSet training = new TrainingSet(patterns);
-        training.dump();
-
-        NeuralNet ann = new NeuralNet(attributes, training, 2);
-        ann.dump();
-
-
-
-        double[] input1 = {0, 1, 1, 0.2, 0};
-        double[] input2 = {1, 1, 1, 1, 0};
-        double[] input3 = {0.5, 1, 0, 1, 1};
-
-
-        ann.learn(0.3, 10000);
-        ann.dump();
-        ann.run(input1);
-
-        System.out.println("Input:");
-        for (int i=0; i < ann.input().length; i++) {
-            System.out.print(" "+ann.input()[i]+" ");
-        }
-        System.out.println();
-        System.out.println("Output:");
-        for (int i=0; i < ann.output().length; i++) {
-            System.out.print(" "+String.format("%.5f",ann.output()[i])+" ");
-        }
-        System.out.println();
-
-        ann.run(input2);
-
-        System.out.println("Input:");
-        for (int i=0; i < ann.input().length; i++) {
-            System.out.print(" "+ann.input()[i]+" ");
-        }
-        System.out.println();
-        System.out.println("Output:");
-        for (int i=0; i < ann.output().length; i++) {
-            System.out.print(" "+String.format("%.5f",ann.output()[i])+" ");
-        }
-        System.out.println();
-
-        ann.run(input3);
-
-        System.out.println("Input:");
-        for (int i=0; i < ann.input().length; i++) {
-            System.out.print(" "+ann.input()[i]+" ");
-        }
-        System.out.println();
-        System.out.println("Output:");
-        for (int i=0; i < ann.output().length; i++) {
-            System.out.print(" "+String.format("%.5f",ann.output()[i])+" ");
-        }
-        System.out.println();
-
-        Number[] error = ann.meanSquaredError();
-        System.out.println();
-        System.out.println("Total error[%]: "+String.format("%.2f",error[0].floatValue()));
-        System.out.println("Worst pattern error[%]: "+String.format("%.2f",error[1].floatValue()));
-        System.out.println("Worst pattern index: "+error[2]);
-
-        SaveFileDialog toSave = new SaveFileDialog();
-        toSave.saveANN(ann);
-        OpenFileDialog toOpen = new OpenFileDialog();
-        NeuralNet annLoaded = toOpen.openANN();
-        annLoaded.dump();
-         */
 
         Attribute[][] attributes = getAttributes();
         Pattern[] patterns = getPatterns();
