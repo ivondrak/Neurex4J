@@ -53,13 +53,13 @@ public class MainFrame extends JFrame {
         JMenu viewMenu = new JMenu("View");
         JMenuItem topologyItem = new JMenuItem("Topology");
         JMenuItem attributesItem = new JMenuItem("Attributes");
-        JMenuItem patternItem = new JMenuItem("Pattern");
+        JMenuItem patternsItem = new JMenuItem("Patterns");
         JMenuItem learningItem = new JMenuItem("Learning");
         JMenuItem consultItem = new JMenuItem("Consult");
 
         viewMenu.add(topologyItem);
         viewMenu.add(attributesItem);
-        viewMenu.add(patternItem);
+        viewMenu.add(patternsItem);
         viewMenu.add(learningItem);
         viewMenu.addSeparator();
         viewMenu.add(consultItem);
@@ -91,7 +91,10 @@ public class MainFrame extends JFrame {
             changeModel();
             cardLayout.show(mainPanel, "Attributes");
         });
-        patternItem.addActionListener(e -> cardLayout.show(mainPanel, "Patterns"));
+        patternsItem.addActionListener(e -> {
+            changeModel();
+            cardLayout.show(mainPanel, "Patterns");
+        });
         learningItem.addActionListener(e -> {
             changeModel();
             cardLayout.show(mainPanel, "Learning");
@@ -121,9 +124,8 @@ public class MainFrame extends JFrame {
         JPanel attributesPanel = new AttributesPanel(this);
         mainPanel.add(attributesPanel, "Attributes");
 
-        JPanel patternPanel = new JPanel();
-        patternPanel.add(new JLabel("Pattern View"));
-        mainPanel.add(patternPanel, "Patterns");
+        JPanel patternsPanel = new PatternsPanel(this);
+        mainPanel.add(patternsPanel, "Patterns");
 
         JPanel learningPanel = new LearningPanel(this);
         mainPanel.add(learningPanel, "Learning");

@@ -7,17 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collections;
 
-public class ConsultPanel extends JPanel implements ANNUpdateListener {
+public class PatternsPanel extends JPanel implements ANNUpdateListener {
     MainFrame main;
     private final DefaultListModel<AttributePair> inputListModel;
     private final DefaultListModel<AttributePair> outputListModel;
     private final JList<AttributePair> inputList;
-    @SuppressWarnings("FieldCanBeLocal")
     private final JList<AttributePair> outputList;
+    private final JSlider slider;
+    private final JLabel indexLabel;
 
-    public ConsultPanel(MainFrame main) {
+    public PatternsPanel(MainFrame main) {
         this.main = main;
         this.main.addUpdateListener(this);
 
@@ -50,31 +50,62 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         createListRenderer(inputList);
 
         JScrollPane inputScrollPanel = new JScrollPane(inputList);
-        inputScrollPanel.setPreferredSize(new Dimension(250, 400));
+        inputScrollPanel.setPreferredSize(new Dimension(250, 350));
+
         outputListModel = new DefaultListModel<>();
         outputList = new JList<>(outputListModel);
 
         createListRenderer(outputList);
 
         JScrollPane outputScrollPanel = new JScrollPane(outputList);
-        outputScrollPanel.setPreferredSize(new Dimension(250, 400));
+        outputScrollPanel.setPreferredSize(new Dimension(250, 350));
         attributesPanel.add(inputScrollPanel);
         attributesPanel.add(outputScrollPanel);
 
-        JButton resetButton = new JButton("Reset Input");
-        resetButton.addActionListener(e -> {
+        JPanel sliderPanel = new JPanel(new BorderLayout());
+        slider = new JSlider(0, main.ann.trainingSet.patterns.length-1);
+        slider.setValue(0);
+        JPanel flowPanel = new JPanel(new FlowLayout());
+        JLabel patternLabel = new JLabel("Pattern:");
+        indexLabel = new JLabel(String.valueOf(slider.getValue()+1));
+        flowPanel.add(patternLabel);
+        flowPanel.add(indexLabel);
+        sliderPanel.add(BorderLayout.NORTH, flowPanel);
+        sliderPanel.add(BorderLayout.CENTER, slider);
+
+        slider.addChangeListener(e -> {
+            int index = slider.getValue();
+            indexLabel.setText(String.valueOf(index+1));
             updateInputList();
-            consult();
+            updateOutputList();
         });
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+        JButton addButton = new JButton("Add Pattern");
+        addButton.addActionListener(e -> {
+            addPattern();
+            updateInputList();
+            updateOutputList();
+        });
+        JButton removeButton = new JButton("Remove Pattern");
+        addButton.addActionListener(e -> {
+            removePattern();
+            updateInputList();
+            updateOutputList();
+        });
+        buttonPanel.add(addButton);
+        buttonPanel.add(removeButton);
+
         JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
         separator.setPreferredSize(new Dimension(550, 10));
 
         updateInputList();
-        consult();
+        updateOutputList();
 
         centerPanel.add(attributesPanel, gbc);
+        centerPanel.add(sliderPanel, gbc);
         centerPanel.add(separator, gbc);
-        centerPanel.add(resetButton, gbc);
+        centerPanel.add(buttonPanel, gbc);
 
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(titleLabel);
@@ -90,9 +121,14 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
             }
         });
 
-
-        //this.main.getRootPane().setDefaultButton(runButton);
-
+        outputList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    int index = outputList.locationToIndex(evt.getPoint());
+                    editOutput(index);
+                }
+            }
+        });
     }
 
     private void createListRenderer(JList<AttributePair> list) {
@@ -134,7 +170,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
                 progress.setOpaque(true);
                 progress.setForeground(isSelected ? list.getSelectionForeground() : list.getForeground());
                 progress.setBackground(isSelected ? list.getSelectionBackground() : list.getBackground());
-                progress.setValue((int) (pair.value*100));
+                progress.setValue((int) (pair.value * 100));
                 panel.add(BorderLayout.SOUTH, progress);
 
                 return panel;
@@ -142,35 +178,36 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         });
     }
 
-    private void consult() {
-        double[] input = new double[main.ann.inputSize];
-        int index = 0;
-        for (AttributePair pair: Collections.list(inputListModel.elements())) {
-            input[index] = pair.value;
-            index += 1;
-        }
-        @SuppressWarnings("unused")
-        double[] output = main.ann.run(input);
-        updateOutputList();
-    }
-
     private void updateInputList() {
         inputListModel.clear();
+        int index = slider.getValue();
+        int i = 0;
         for (Attribute attribute : main.ann.attributes[0]) {
-            AttributePair pair = new AttributePair(attribute, 0.0);
+            double value = main.ann.trainingSet.patterns[index].input[i];
+            AttributePair pair = new AttributePair(attribute, value);
             inputListModel.addElement(pair);
+            i += 1;
         }
     }
 
     private void updateOutputList() {
         outputListModel.clear();
-        int index = 0;
-        double[] output = main.ann.output();
+        int index = slider.getValue();
+        int i = 0;
         for (Attribute attribute : main.ann.attributes[1]) {
-            AttributePair pair = new AttributePair(attribute, output[index]);
+            double value = main.ann.trainingSet.patterns[index].output[i];
+            AttributePair pair = new AttributePair(attribute, value);
             outputListModel.addElement(pair);
-            index += 1;
+            i += 1;
         }
+    }
+
+    private void addPattern() {
+
+    }
+
+    private void removePattern() {
+
     }
 
     private void editInput(int index) {
@@ -180,14 +217,31 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
             editDialog.setVisible(true);
 
             if (editDialog.isConfirmed()) {
-                inputListModel.set(index, editDialog.getAttributePair());
-                consult();
+                pair = editDialog.getAttributePair();
+                inputListModel.set(index, pair);
+                main.ann.trainingSet.patterns[slider.getValue()].input[index] = pair.value;
             }
         }
     }
 
+    private void editOutput(int index) {
+        if (index >= 0) {
+            AttributePair pair = outputListModel.getElementAt(index);
+            ValueEditDialog editDialog = new ValueEditDialog(main, pair);
+            editDialog.setVisible(true);
+
+            if (editDialog.isConfirmed()) {
+                pair = editDialog.getAttributePair();
+                outputListModel.set(index, pair);
+                main.ann.trainingSet.patterns[slider.getValue()].output[index] = pair.value;
+            }
+        }
+
+    }
+
     public void onANNUpdated() {
+        slider.setMaximum(main.ann.trainingSet.patterns.length-1);
         updateInputList();
-        consult();
+        updateOutputList();
     }
 }
