@@ -14,7 +14,7 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
     private final DefaultListModel<AttributePair> outputListModel;
     private final JList<AttributePair> inputList;
     private final JList<AttributePair> outputList;
-    private final JSlider slider;
+    public final JSlider slider;
     private final JLabel indexLabel;
 
     public PatternsPanel(MainFrame main) {
@@ -23,7 +23,7 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Neural Net Inferrencing");
+        JLabel titleLabel = new JLabel("Training Set Patterns");
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
@@ -202,7 +202,7 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
         }
     }
 
-    private void addPattern() {
+    public void addPattern() {
         main.ann.trainingSet.addPattern();
         slider.setMaximum(main.ann.trainingSet.patterns.length-1);
         slider.setValue(main.ann.trainingSet.patterns.length-1);

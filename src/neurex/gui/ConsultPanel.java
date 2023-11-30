@@ -2,6 +2,7 @@ package neurex.gui;
 
 import neurex.ann.Attribute;
 import neurex.ann.AttributePair;
+import neurex.ann.Pattern;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +52,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
 
         JScrollPane inputScrollPanel = new JScrollPane(inputList);
         inputScrollPanel.setPreferredSize(new Dimension(250, 400));
+
         outputListModel = new DefaultListModel<>();
         outputList = new JList<>(outputListModel);
 
@@ -58,14 +60,21 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
 
         JScrollPane outputScrollPanel = new JScrollPane(outputList);
         outputScrollPanel.setPreferredSize(new Dimension(250, 400));
+
         attributesPanel.add(inputScrollPanel);
         attributesPanel.add(outputScrollPanel);
 
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2));
         JButton resetButton = new JButton("Reset Input");
         resetButton.addActionListener(e -> {
             updateInputList();
             consult();
         });
+        JButton addButton = new JButton("Add as a New Pattern");
+        addButton.addActionListener(e -> addAsPattern());
+        buttonsPanel.add(resetButton);
+        buttonsPanel.add(addButton);
+
         JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
         separator.setPreferredSize(new Dimension(550, 10));
 
@@ -74,7 +83,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
 
         centerPanel.add(attributesPanel, gbc);
         centerPanel.add(separator, gbc);
-        centerPanel.add(resetButton, gbc);
+        centerPanel.add(buttonsPanel, gbc);
 
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(titleLabel);
@@ -171,6 +180,25 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
             outputListModel.addElement(pair);
             index += 1;
         }
+    }
+
+    private void addAsPattern() {
+        PatternsPanel panel = (PatternsPanel) main.cardMap.get("Patterns");
+        panel.addPattern();
+        int index = panel.slider.getValue();
+        Pattern pattern = main.ann.trainingSet.patterns[index];
+        int i = 0;
+        for (AttributePair pair: Collections.list(inputListModel.elements())) {
+            pattern.input[i] = pair.value;
+            i += 1;
+        }
+        i = 0;
+        for (AttributePair pair: Collections.list(outputListModel.elements())) {
+            pattern.output[i] = pair.value;
+            i += 1;
+        }
+        main.changeModel();
+        main.cardLayout.show(main.mainPanel, "Patterns");
     }
 
     private void editInput(int index) {

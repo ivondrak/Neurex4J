@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class MainFrame extends JFrame {
 
     public CardLayout cardLayout = new CardLayout();
     public JPanel mainPanel = new JPanel(cardLayout);
+    public Map<String, JPanel> cardMap;
 
     private final List<ANNUpdateListener> listeners = new ArrayList<>();
 
@@ -115,26 +118,35 @@ public class MainFrame extends JFrame {
     }
 
     private void createViewPanels() {
+        cardMap = new HashMap<>();
+
         JPanel initPanel = new InitPanel(this);
         mainPanel.add(initPanel, "Init");
+        cardMap.put("Init",initPanel);
 
         JPanel topologyPanel = new TopologyPanel(this);
         mainPanel.add(topologyPanel, "Topology");
+        cardMap.put("Topology",topologyPanel);
 
         JPanel attributesPanel = new AttributesPanel(this);
         mainPanel.add(attributesPanel, "Attributes");
+        cardMap.put("Attributes",attributesPanel);
 
         JPanel patternsPanel = new PatternsPanel(this);
         mainPanel.add(patternsPanel, "Patterns");
+        cardMap.put("Patterns",patternsPanel);
 
         JPanel learningPanel = new LearningPanel(this);
         mainPanel.add(learningPanel, "Learning");
+        cardMap.put("Learning",learningPanel);
 
         JPanel consultPanel = new ConsultPanel(this);
         mainPanel.add(consultPanel, "Consult");
+        cardMap.put("Consult",consultPanel);
 
         JPanel credentialPanel = new CredentialsPanel();
         mainPanel.add(credentialPanel, "Credentials");
+        cardMap.put("Credential",credentialPanel);
     }
 
     void openFile() {
