@@ -1,6 +1,6 @@
 package neurex.gui;
 
-import neurex.ann.NeuralNet;
+
 import javax.swing.*;
 import java.io.*;
 
