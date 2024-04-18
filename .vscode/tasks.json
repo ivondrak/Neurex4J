@@ -1,12 +1,25 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
             "label": "compile",
             "type": "shell",
-            "command": "javac -d out src/**/*.java",
+            "command": "javac",
+            "args": [
+                "-d",
+                "out",
+                "src/**/*.java"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "create jar",
+            "type": "shell",
+            "command": "echo Main-Class: Main > manifest.txt && jar cvfm Neurex4J.jar manifest.txt -C out/ . && jar uf Neurex4J.jar -C resources/ .",
             "group": {
                 "kind": "build",
                 "isDefault": true

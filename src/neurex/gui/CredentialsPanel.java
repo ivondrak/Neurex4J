@@ -12,7 +12,7 @@ public class CredentialsPanel extends JPanel {
     public CredentialsPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
-            InputStream stream = getClass().getResourceAsStream("/resources/images/neurex.png");
+            InputStream stream = getClass().getClassLoader().getResourceAsStream("images/neurex.png");
             img = ImageIO.read(Objects.requireNonNull(stream));
         } catch (IOException e) {
             //noinspection CallToPrintStackTrace
