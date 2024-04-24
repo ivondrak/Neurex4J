@@ -7,7 +7,7 @@
             "request": "launch",
             "mainClass": "Main",
             "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
-            "preLaunchTask": "compile",
+            "preLaunchTask": "compile"
         },
         {
             "type": "java",
@@ -16,6 +16,21 @@
             "mainClass": "Main",
             "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
             "preLaunchTask": "create jar"
-        }
+        },
+        {
+            "type": "java",
+            "name": "Run for Windows",
+            "request": "launch",
+            "mainClass": "Main",
+            "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
+        },
+        {
+            "type": "java",
+            "name": "Build for Windows",
+            "request": "launch",
+            "mainClass": "Main",
+            "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
+            "preLaunchTask": "build"
+        },
     ]
 }
