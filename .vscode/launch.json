@@ -3,11 +3,34 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)",
+            "name": "Run without built",
             "request": "launch",
             "mainClass": "Main",
             "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
-            "preLaunchTask": "compile"
+        },
+        {
+            "type": "java",
+            "name": "Compile and run for MacOS",
+            "request": "launch",
+            "mainClass": "Main",
+            "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
+            "preLaunchTask": "Compile for MacOS"
+        },
+        {
+            "type": "java",
+            "name": "Compile and run for Windows",
+            "request": "launch",
+            "mainClass": "Main",
+            "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
+            "preLaunchTask": "Compile for Windows"
+        },
+        {
+            "type": "java",
+            "name": "Compile and run for Linux",
+            "request": "launch",
+            "mainClass": "Main",
+            "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
+            "preLaunchTask": "Compile for Linux"
         },
         {
             "type": "java",
@@ -16,21 +39,7 @@
             "mainClass": "Main",
             "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
             "preLaunchTask": "create jar"
-        },
-        {
-            "type": "java",
-            "name": "Run for Windows",
-            "request": "launch",
-            "mainClass": "Main",
-            "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
-        },
-        {
-            "type": "java",
-            "name": "Build for Windows",
-            "request": "launch",
-            "mainClass": "Main",
-            "classPaths": ["${workspaceFolder}/out", "${workspaceFolder}/resources"],
-            "preLaunchTask": "build"
-        },
+        } 
+        
     ]
 }

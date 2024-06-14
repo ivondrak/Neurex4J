@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "compile",
+            "label": "Compile for MacOS",
             "type": "shell",
             "command": "javac",
             "args": [
@@ -12,7 +12,7 @@
             ],
             "group": {
                 "kind": "build",
-                "isDefault": truejava
+                "isDefault": true
             },
             "problemMatcher": []
         },
@@ -27,7 +27,7 @@
             "problemMatcher": []
         },
         {
-            "label": "build",
+            "label": "Compile for Windows",
             "type": "shell",
             "command": "Get-ChildItem -Recurse -Filter *.java -Name | ForEach-Object {javac -d out -sourcepath src $_}",
             "group": {
@@ -38,6 +38,16 @@
                 "reveal": "always"
             },
             "problemMatcher": "$javac"
+        },
+        {
+            "label": "Compile for Linux",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "\"shopt -s globstar && javac -d out src/**/*.java\""
+            ],
+            "problemMatcher": []
         }
     ]
 }
