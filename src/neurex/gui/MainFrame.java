@@ -1,11 +1,13 @@
 package neurex.gui;
 import neurex.ann.NeuralNet;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,12 +28,35 @@ public class MainFrame extends JFrame {
 
     public MainFrame(NeuralNet ann) {
         this.ann = ann;
+        setApplicationIcon();
         createMenuBar();
         createViewPanels();
         setTitle("ANN: "+filename);
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(mainPanel);
+    }
+
+    private void setApplicationIcon() {
+        try (InputStream stream = getClass().getClassLoader().getResourceAsStream("images/neurex.png")) {
+            Image icon = ImageIO.read(Objects.requireNonNull(stream));
+            setIconImage(icon);
+            setTaskbarIcon(icon);
+        } catch (IOException e) {
+            //noinspection CallToPrintStackTrace
+            e.printStackTrace();
+        }
+    }
+
+    private void setTaskbarIcon(Image icon) {
+        if (!Taskbar.isTaskbarSupported()) {
+            return;
+        }
+
+        Taskbar taskbar = Taskbar.getTaskbar();
+        if (taskbar.isSupported(Taskbar.Feature.ICON_IMAGE)) {
+            taskbar.setIconImage(icon);
+        }
     }
 
     private void createMenuBar() {
@@ -193,4 +218,3 @@ public class MainFrame extends JFrame {
         notifyListeners();
     }
 }
-
