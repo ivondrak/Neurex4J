@@ -1,5 +1,6 @@
 package neurex.gui;
 import neurex.ann.NeuralNet;
+import neurex.ann.NeuralNetJson;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,7 +10,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -20,7 +23,7 @@ public final class MainFrame extends JFrame {
     private static final long serialVersionUID = 1L;
 
     public NeuralNet ann;
-    public String filename = "undefined.neux";
+    public String filename = "undefined.ann";
 
     public CardLayout cardLayout = new CardLayout();
     public JPanel mainPanel = new JPanel(cardLayout);
@@ -192,15 +195,15 @@ public final class MainFrame extends JFrame {
     }
 
     void save() {
-        if (Objects.equals(filename, "undefined.neux")) {
+        if (Objects.equals(filename, "undefined.ann")) {
             SaveFileDialog toSave = new SaveFileDialog();
             toSave.saveANN(this);
             updateTitle();
         } else {
             File fileToSave = new File(filename);
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
-                oos.writeObject(ann);
-                System.out.println("Object saved to: " + fileToSave.getAbsolutePath());
+            try (Writer writer = new OutputStreamWriter(new FileOutputStream(fileToSave), StandardCharsets.UTF_8)) {
+                NeuralNetJson.write(ann, writer);
+                System.out.println("JSON saved to: " + fileToSave.getAbsolutePath());
                 filename = fileToSave.getAbsolutePath();
             } catch (IOException e) {
                 //noinspection CallToPrintStackTrace

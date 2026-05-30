@@ -80,7 +80,7 @@ public class Messages_cs extends ListResourceBundle {
                 {"dialog.cancel", "Zrušit"},
                 {"dialog.inputError.title", "Chyba vstupních dat."},
 
-                {"file.filter.neurex", "soubory neurex"},
+                {"file.filter.neurex", "soubory Neurex JSON"},
                 {"file.open.title", "Otevřít projekt"},
                 {"file.save.title", "Uložit projekt"},
                 {"file.saveAs", "Uložit jako:"},

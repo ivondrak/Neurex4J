@@ -80,7 +80,7 @@ public class Messages_en extends ListResourceBundle {
                 {"dialog.cancel", "Cancel"},
                 {"dialog.inputError.title", "Input data error."},
 
-                {"file.filter.neurex", "neurex files"},
+                {"file.filter.neurex", "Neurex JSON files"},
                 {"file.open.title", "Open Project"},
                 {"file.save.title", "Save Project"},
                 {"file.saveAs", "Save As:"},

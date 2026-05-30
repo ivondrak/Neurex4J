@@ -146,7 +146,7 @@ public final class InitPanel extends JPanel implements ANNUpdateListener {
         }
         TrainingSet trainingSet = new TrainingSet(patterns);
         main.ann = new NeuralNet(attributes, trainingSet, hiddenLayers);
-        main.filename = "undefined.neux";
+        main.filename = "undefined.ann";
 
         main.changeModel();
         main.cardLayout.show(main.mainPanel, "Topology");
