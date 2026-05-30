@@ -32,6 +32,10 @@ public final class CredentialsPanel extends JPanel {
         JLabel imageLabel = new JLabel(imageIcon);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JLabel versionLabel = new JLabel("Neurex v. 2.0");
+        versionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        versionLabel.setFont(new Font(versionLabel.getFont().getName(), Font.BOLD, 14));
+
         JLabel textLabel = new JLabel("(c) Ivo Vondrak, 2023-2026");
         textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -39,6 +43,8 @@ public final class CredentialsPanel extends JPanel {
         add(titleLabel);
         add(Box.createRigidArea(new Dimension(0, 100)));
         add(imageLabel);
+        add(Box.createRigidArea(new Dimension(0, 5)));
+        add(versionLabel);
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(textLabel);
     }
