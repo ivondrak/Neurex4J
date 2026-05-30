@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serial;
 
-public class InitPanel extends JPanel implements ANNUpdateListener {
+public final class InitPanel extends JPanel implements ANNUpdateListener {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,6 @@ public class InitPanel extends JPanel implements ANNUpdateListener {
     private JTextField hiddenLayersField;
 
 
-    @SuppressWarnings("this-escape")
     public InitPanel(MainFrame main) {
         this.main = main;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

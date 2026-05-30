@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serial;
 
-public class PatternsPanel extends JPanel implements ANNUpdateListener {
+public final class PatternsPanel extends JPanel implements ANNUpdateListener {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -18,10 +18,9 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
     private final DefaultListModel<AttributePair> outputListModel;
     private final JList<AttributePair> inputList;
     private final JList<AttributePair> outputList;
-    public final JSlider slider;
+    private final JSlider slider;
     private final JLabel indexLabel;
 
-    @SuppressWarnings("this-escape")
     public PatternsPanel(MainFrame main) {
         this.main = main;
 
@@ -212,6 +211,10 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
         slider.setValue(main.ann.trainingSet.patterns.length-1);
         int index = slider.getValue();
         indexLabel.setText(String.valueOf(index+1));
+    }
+
+    public int getCurrentPatternIndex() {
+        return slider.getValue();
     }
 
     private void removePattern() {

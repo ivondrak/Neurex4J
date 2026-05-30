@@ -7,11 +7,8 @@ import neurex.ann.TrainingSet;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serial;
-import java.text.NumberFormat;
-import java.util.Locale;
-import java.text.ParseException;
 
-public class LearningPanel extends JPanel implements ANNUpdateListener {
+public final class LearningPanel extends JPanel implements ANNUpdateListener {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,11 +18,9 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
     private JTextField errorField;
     private JTextField worstField;
     private JTextField worstErrorField;
-    @SuppressWarnings("FieldMayBeFinal")
-    private JLabel statusField;
+    private final JLabel statusField;
 
 
-    @SuppressWarnings("this-escape")
     public LearningPanel(MainFrame main) {
         this.main = main;
 
@@ -166,19 +161,6 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
         }
         main.ann.learn(learningCoefficient, cycles);
         statusField.setText(I18n.text("panel.learning.learned"));
-    }
-
-    @SuppressWarnings("unused")
-    private static double readLocalizedNumber(String text) {
-        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-        double result = 0;
-        try {
-            result = numberFormat.parse(text).doubleValue();
-        } catch (ParseException e) {
-            //noinspection CallToPrintStackTrace
-            e.printStackTrace();
-        }
-        return result;
     }
 
     public void resetNetwork() {

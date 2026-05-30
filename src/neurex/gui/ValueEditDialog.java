@@ -7,16 +7,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.Serial;
 
-public class ValueEditDialog extends JDialog {
+public final class ValueEditDialog extends JDialog {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public transient AttributePair pair;
+    private final transient AttributePair pair;
     private final JLabel valueField;
     private final JSlider slider;
     private boolean confirmed = false;
 
-    @SuppressWarnings("this-escape")
     public ValueEditDialog(JFrame parent, AttributePair pair) {
         super(parent, I18n.text("dialog.value.title"), true);
 

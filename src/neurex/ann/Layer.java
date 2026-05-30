@@ -11,7 +11,6 @@ public class Layer implements Serializable {
 	public Neuron[] output;
 
 	public Layer(Neuron[] input, Neuron[] output) {
-		// TODO Auto-generated constructor stub
         this.input = input;
         this.output = output;
         this.connections = new Connection[input.length][output.length];

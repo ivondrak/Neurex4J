@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.Serial;
 
-class AttributeEditDialog extends JDialog {
+final class AttributeEditDialog extends JDialog {
     @Serial
     private static final long serialVersionUID = 1L;
 

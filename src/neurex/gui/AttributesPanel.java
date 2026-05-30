@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.io.Serial;
 
 
-public class AttributesPanel extends JPanel implements ANNUpdateListener {
+public final class AttributesPanel extends JPanel implements ANNUpdateListener {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,6 @@ public class AttributesPanel extends JPanel implements ANNUpdateListener {
     private final JList<Attribute> inputAttributeList;
     private final JList<Attribute> outputAttributeList;
 
-    @SuppressWarnings("this-escape")
     public AttributesPanel(MainFrame main) {
         this.main = main;
 

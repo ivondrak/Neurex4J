@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serial;
 
-public class TopologyPanel extends JPanel implements ANNUpdateListener {
+public final class TopologyPanel extends JPanel implements ANNUpdateListener {
     @Serial
     private static final long serialVersionUID = 1L;
     private static final Dimension SPECIFICATION_ROW_SIZE = new Dimension(420, 28);
@@ -15,7 +15,6 @@ public class TopologyPanel extends JPanel implements ANNUpdateListener {
     JTextField patternsLabel;
     JTextField errorLabel;
 
-    @SuppressWarnings("this-escape")
     public TopologyPanel(MainFrame main) {
         this.main = main;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

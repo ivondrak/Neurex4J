@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serial;
 
-public class ToastBar extends JPanel {
+public final class ToastBar extends JPanel {
     @Serial
     private static final long serialVersionUID = 1L;
 

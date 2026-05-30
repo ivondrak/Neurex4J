@@ -14,9 +14,7 @@ public class NeuralNet implements Serializable {
 	public int inputSize, outputSize, innerSize, hidden;
 	
 
-	@SuppressWarnings("unused")
 	public NeuralNet() {
-		// TODO Auto-generated constructor stub
 		inputSize = 1;
 		outputSize = 1;
 		innerSize = 1;
@@ -53,7 +51,6 @@ public class NeuralNet implements Serializable {
 	}
 	
 	public NeuralNet(Attribute[][] attributes, TrainingSet training, int hidden) {
-		// TODO Auto-generated constructor stub
 		this.attributes = attributes;
 		this.trainingSet = training;
 		this.inputSize  = attributes[0].length;

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.List;
 
-public class MainFrame extends JFrame {
+public final class MainFrame extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,6 @@ public class MainFrame extends JFrame {
     private final ToastBar toastBar = new ToastBar();
     private final transient List<ANNUpdateListener> listeners = new ArrayList<>();
 
-    @SuppressWarnings("this-escape")
     public MainFrame(NeuralNet ann) {
         this.ann = ann;
         setApplicationIcon();
@@ -42,7 +41,6 @@ public class MainFrame extends JFrame {
         add(toastBar, BorderLayout.SOUTH);
     }
 
-    @SuppressWarnings("this-escape")
     private void setApplicationIcon() {
         try (InputStream stream = getClass().getClassLoader().getResourceAsStream("images/neurex.png")) {
             Image icon = ImageIO.read(Objects.requireNonNull(stream));

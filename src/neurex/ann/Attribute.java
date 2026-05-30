@@ -17,12 +17,12 @@ public class Attribute implements Serializable {
 	}
 
 	public Attribute(String attribute, double minValue, double maxValue) {
-		// TODO Auto-generated constructor stub
 		this.attribute = attribute;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
 	}
 
+	@Override
 	public String toString() {
 		return attribute;
 	}

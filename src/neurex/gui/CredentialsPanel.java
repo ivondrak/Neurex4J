@@ -8,13 +8,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class CredentialsPanel extends JPanel {
+public final class CredentialsPanel extends JPanel {
     @Serial
     private static final long serialVersionUID = 1L;
 
     transient BufferedImage img = null;
 
-    @SuppressWarnings("this-escape")
     public CredentialsPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
@@ -33,7 +32,7 @@ public class CredentialsPanel extends JPanel {
         JLabel imageLabel = new JLabel(imageIcon);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel textLabel = new JLabel("(c) Ivo Vondrak, 2023");
+        JLabel textLabel = new JLabel("(c) Ivo Vondrak, 2023-2026");
         textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         add(Box.createRigidArea(new Dimension(0, 10)));

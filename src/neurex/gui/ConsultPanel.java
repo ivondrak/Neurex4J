@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.Serial;
 import java.util.Collections;
 
-public class ConsultPanel extends JPanel implements ANNUpdateListener {
+public final class ConsultPanel extends JPanel implements ANNUpdateListener {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -19,10 +19,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
     private final DefaultListModel<AttributePair> inputListModel;
     private final DefaultListModel<AttributePair> outputListModel;
     private final JList<AttributePair> inputList;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final JList<AttributePair> outputList;
 
-    @SuppressWarnings("this-escape")
     public ConsultPanel(MainFrame main) {
         this.main = main;
 
@@ -58,7 +55,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         inputScrollPanel.setPreferredSize(new Dimension(250, 400));
 
         outputListModel = new DefaultListModel<>();
-        outputList = new JList<>(outputListModel);
+        JList<AttributePair> outputList = new JList<>(outputListModel);
 
         createListRenderer(outputList);
 
@@ -162,8 +159,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
             input[index] = pair.value;
             index += 1;
         }
-        @SuppressWarnings("unused")
-        double[] output = main.ann.run(input);
+        main.ann.run(input);
         updateOutputList();
     }
 
@@ -189,7 +185,7 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
     private void addAsPattern() {
         PatternsPanel panel = (PatternsPanel) main.cardMap.get("Patterns");
         panel.addPattern();
-        int index = panel.slider.getValue();
+        int index = panel.getCurrentPatternIndex();
         Pattern pattern = main.ann.trainingSet.patterns[index];
         int i = 0;
         for (AttributePair pair: Collections.list(inputListModel.elements())) {
