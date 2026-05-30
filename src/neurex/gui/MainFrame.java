@@ -4,6 +4,7 @@ import neurex.ann.NeuralNet;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serial;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,32 +12,37 @@ import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.List;
 
 public class MainFrame extends JFrame {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public NeuralNet ann;
     public String filename = "undefined.neux";
 
     public CardLayout cardLayout = new CardLayout();
     public JPanel mainPanel = new JPanel(cardLayout);
-    public Map<String, JPanel> cardMap;
+    public HashMap<String, JPanel> cardMap;
 
-    private final List<ANNUpdateListener> listeners = new ArrayList<>();
+    private final ToastBar toastBar = new ToastBar();
+    private final transient List<ANNUpdateListener> listeners = new ArrayList<>();
 
+    @SuppressWarnings("this-escape")
     public MainFrame(NeuralNet ann) {
         this.ann = ann;
         setApplicationIcon();
         createMenuBar();
         createViewPanels();
-        setTitle("ANN: "+filename);
+        updateTitle();
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add(mainPanel);
+        add(mainPanel, BorderLayout.CENTER);
+        add(toastBar, BorderLayout.SOUTH);
     }
 
+    @SuppressWarnings("this-escape")
     private void setApplicationIcon() {
         try (InputStream stream = getClass().getClassLoader().getResourceAsStream("images/neurex.png")) {
             Image icon = ImageIO.read(Objects.requireNonNull(stream));
@@ -63,12 +69,12 @@ public class MainFrame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
 
         // File Menu
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem newItem = new JMenuItem("New");
-        JMenuItem openItem = new JMenuItem("Open");
-        JMenuItem saveItem = new JMenuItem("Save");
-        JMenuItem saveAsItem = new JMenuItem("Save As");
-        JMenuItem exitItem = new JMenuItem("Exit");
+        JMenu fileMenu = new JMenu(I18n.text("menu.file"));
+        JMenuItem newItem = new JMenuItem(I18n.text("menu.file.new"));
+        JMenuItem openItem = new JMenuItem(I18n.text("menu.file.open"));
+        JMenuItem saveItem = new JMenuItem(I18n.text("menu.file.save"));
+        JMenuItem saveAsItem = new JMenuItem(I18n.text("menu.file.saveAs"));
+        JMenuItem exitItem = new JMenuItem(I18n.text("menu.file.exit"));
 
         fileMenu.add(newItem);
         fileMenu.add(openItem);
@@ -78,12 +84,12 @@ public class MainFrame extends JFrame {
         fileMenu.add(exitItem);
 
         // View Menu
-        JMenu viewMenu = new JMenu("View");
-        JMenuItem topologyItem = new JMenuItem("Topology");
-        JMenuItem attributesItem = new JMenuItem("Attributes");
-        JMenuItem patternsItem = new JMenuItem("Patterns");
-        JMenuItem learningItem = new JMenuItem("Learning");
-        JMenuItem consultItem = new JMenuItem("Consult");
+        JMenu viewMenu = new JMenu(I18n.text("menu.view"));
+        JMenuItem topologyItem = new JMenuItem(I18n.text("menu.view.topology"));
+        JMenuItem attributesItem = new JMenuItem(I18n.text("menu.view.attributes"));
+        JMenuItem patternsItem = new JMenuItem(I18n.text("menu.view.patterns"));
+        JMenuItem learningItem = new JMenuItem(I18n.text("menu.view.learning"));
+        JMenuItem consultItem = new JMenuItem(I18n.text("menu.view.consult"));
 
         viewMenu.add(topologyItem);
         viewMenu.add(attributesItem);
@@ -93,45 +99,45 @@ public class MainFrame extends JFrame {
         viewMenu.add(consultItem);
 
         // Help Menu
-        JMenu helpMenu = new JMenu("Help");
-        JMenuItem credentialsItem = new JMenuItem("Credentials");
+        JMenu helpMenu = new JMenu(I18n.text("menu.help"));
+        JMenuItem credentialsItem = new JMenuItem(I18n.text("menu.help.credentials"));
 
         helpMenu.add(credentialsItem);
 
         // Add action listeners for menu items (example actions)
-        newItem.addActionListener(e -> {
+        newItem.addActionListener(_ -> {
             changeModel();
             cardLayout.show(mainPanel, "Init");
         });
-        openItem.addActionListener(e -> openFile());
-        saveItem.addActionListener(e -> save());
-        saveAsItem.addActionListener(e -> {
+        openItem.addActionListener(_ -> openFile());
+        saveItem.addActionListener(_ -> save());
+        saveAsItem.addActionListener(_ -> {
             SaveFileDialog toSave = new SaveFileDialog();
             toSave.saveANN(this);
-            setTitle("ANN: "+filename);
+            updateTitle();
         });
-        exitItem.addActionListener(e -> System.exit(0)); // This will exit the application
-        topologyItem.addActionListener(e -> {
+        exitItem.addActionListener(_ -> System.exit(0)); // This will exit the application
+        topologyItem.addActionListener(_ -> {
             changeModel();
             cardLayout.show(mainPanel, "Topology");
         });
-        attributesItem.addActionListener(e -> {
+        attributesItem.addActionListener(_ -> {
             changeModel();
             cardLayout.show(mainPanel, "Attributes");
         });
-        patternsItem.addActionListener(e -> {
+        patternsItem.addActionListener(_ -> {
             changeModel();
             cardLayout.show(mainPanel, "Patterns");
         });
-        learningItem.addActionListener(e -> {
+        learningItem.addActionListener(_ -> {
             changeModel();
             cardLayout.show(mainPanel, "Learning");
         });
-        consultItem.addActionListener(e -> {
+        consultItem.addActionListener(_ -> {
             changeModel();
             cardLayout.show(mainPanel, "Consult");
         });
-        credentialsItem.addActionListener(e -> cardLayout.show(mainPanel, "Credentials"));
+        credentialsItem.addActionListener(_ -> cardLayout.show(mainPanel, "Credentials"));
 
         // Add menus to menu bar
         menuBar.add(fileMenu);
@@ -146,46 +152,52 @@ public class MainFrame extends JFrame {
         cardMap = new HashMap<>();
 
         JPanel initPanel = new InitPanel(this);
-        mainPanel.add(initPanel, "Init");
-        cardMap.put("Init",initPanel);
+        addCard("Init", initPanel);
 
         JPanel topologyPanel = new TopologyPanel(this);
-        mainPanel.add(topologyPanel, "Topology");
-        cardMap.put("Topology",topologyPanel);
+        addCard("Topology", topologyPanel);
 
         JPanel attributesPanel = new AttributesPanel(this);
-        mainPanel.add(attributesPanel, "Attributes");
-        cardMap.put("Attributes",attributesPanel);
+        addCard("Attributes", attributesPanel);
 
         JPanel patternsPanel = new PatternsPanel(this);
-        mainPanel.add(patternsPanel, "Patterns");
-        cardMap.put("Patterns",patternsPanel);
+        addCard("Patterns", patternsPanel);
 
         JPanel learningPanel = new LearningPanel(this);
-        mainPanel.add(learningPanel, "Learning");
-        cardMap.put("Learning",learningPanel);
+        addCard("Learning", learningPanel);
 
         JPanel consultPanel = new ConsultPanel(this);
-        mainPanel.add(consultPanel, "Consult");
-        cardMap.put("Consult",consultPanel);
+        addCard("Consult", consultPanel);
 
         JPanel credentialPanel = new CredentialsPanel();
-        mainPanel.add(credentialPanel, "Credentials");
-        cardMap.put("Credential",credentialPanel);
+        addCard("Credentials", credentialPanel);
+    }
+
+    private void addCard(String name, JPanel panel) {
+        mainPanel.add(panel, name);
+        cardMap.put(name, panel);
+        if (panel instanceof ANNUpdateListener listener) {
+            addUpdateListener(listener);
+        }
     }
 
     void openFile() {
         OpenFileDialog toOpen = new OpenFileDialog();
-        toOpen.openANN(this);
-        setTitle("ANN: "+filename);
-        changeModel();
+        OpenFileDialog.OpenResult result = toOpen.openANN(this);
+        if (result == OpenFileDialog.OpenResult.SUCCESS) {
+            updateTitle();
+            changeModel();
+            toastBar.showSuccess(I18n.text("toast.open.success"));
+        } else if (result == OpenFileDialog.OpenResult.FAILURE) {
+            toastBar.showError(I18n.text("toast.open.failure"));
+        }
     }
 
     void save() {
         if (Objects.equals(filename, "undefined.neux")) {
             SaveFileDialog toSave = new SaveFileDialog();
             toSave.saveANN(this);
-            setTitle("ANN: "+filename);
+            updateTitle();
         } else {
             File fileToSave = new File(filename);
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
@@ -216,5 +228,9 @@ public class MainFrame extends JFrame {
 
     public void changeModel() {
         notifyListeners();
+    }
+
+    private void updateTitle() {
+        setTitle(I18n.text("app.title.prefix") + filename);
     }
 }

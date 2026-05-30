@@ -4,11 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d6c6e31-16d6-46dc-b3b6-5ec856ca7b9f" name="Changes" comment="New neurex.png added">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3d6c6e31-16d6-46dc-b3b6-5ec856ca7b9f" name="Changes" comment="System icon changed to neurex.png">
+      <change afterPath="$PROJECT_DIR$/src/neurex/gui/I18n.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/neurex/gui/Messages_cs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/neurex/gui/Messages_en.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/neurex/gui/ToastBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Neurex.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Neurex.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/AttributeEditDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/AttributeEditDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/AttributesPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/AttributesPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/ConsultPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/ConsultPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/CredentialsPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/CredentialsPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/InitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/InitPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/LearningPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/LearningPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/neurex/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/OpenFileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/OpenFileDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/PatternsPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/PatternsPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/SaveFileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/SaveFileDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/TopologyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/TopologyPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/neurex/gui/ValueEditDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/neurex/gui/ValueEditDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.neux" beforeDir="false" afterPath="$PROJECT_DIR$/test.neux" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +62,65 @@
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0000000000196758" />
+      <entry key="MS500" value="1.0097146982411618" />
+      <entry key="S2" value="1.7957205564606018" />
+      <entry key="S5" value="3.83727973784704" />
+      <entry key="S10" value="5.667840050432809" />
+      <entry key="S30" value="7.654734307226816" />
+      <entry key="S60" value="8.292334104701277" />
+      <entry key="M2" value="8.636907939315119" />
+      <entry key="M5" value="8.85247341238341" />
+      <entry key="M10" value="8.92584929636942" />
+      <entry key="M15" value="8.950479672649568" />
+      <entry key="M30" value="8.975196464858538" />
+      <entry key="H1" value="8.987587369074443" />
+      <entry key="H2" value="8.993790966133052" />
+      <entry key="H4" value="8.996894803144523" />
+      <entry key="D1" value="8.999482372729886" />
+      <entry key="W1" value="8.999926050933446" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="9.63593739539917E-10" />
+      <entry key="MS500" value="0.025339462464809632" />
+      <entry key="S2" value="1.148017373587518" />
+      <entry key="S5" value="3.4932963380845763" />
+      <entry key="S10" value="5.4761927519363836" />
+      <entry key="S30" value="7.585617779827088" />
+      <entry key="S60" value="8.257050089864046" />
+      <entry key="M2" value="8.619078237187608" />
+      <entry key="M5" value="8.845295639511361" />
+      <entry key="M10" value="8.922252688862685" />
+      <entry key="M15" value="8.94808021308334" />
+      <entry key="M30" value="8.97399587309548" />
+      <entry key="H1" value="8.986986857441197" />
+      <entry key="H2" value="8.993490656346347" />
+      <entry key="H4" value="8.996744634754627" />
+      <entry key="D1" value="8.999457342790041" />
+      <entry key="W1" value="8.999922475181833" />
+    </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -143,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780067133144</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="System icon changed to neurex.png">
+      <option name="closed" value="true" />
+      <created>1780067806959</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1780067806959</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,6 +275,7 @@
     <MESSAGE value="Serialization added" />
     <MESSAGE value="Max Error fixed" />
     <MESSAGE value="New neurex.png added" />
-    <option name="LAST_COMMIT_MESSAGE" value="New neurex.png added" />
+    <MESSAGE value="System icon changed to neurex.png" />
+    <option name="LAST_COMMIT_MESSAGE" value="System icon changed to neurex.png" />
   </component>
 </project>

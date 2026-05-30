@@ -3,12 +3,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
 public class CredentialsPanel extends JPanel {
-    BufferedImage img = null;
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    transient BufferedImage img = null;
+
+    @SuppressWarnings("this-escape")
     public CredentialsPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
@@ -19,7 +25,7 @@ public class CredentialsPanel extends JPanel {
             e.printStackTrace();
         }
 
-        JLabel titleLabel = new JLabel("Credentials");
+        JLabel titleLabel = new JLabel(I18n.text("menu.help.credentials"));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 

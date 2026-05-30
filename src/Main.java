@@ -5,6 +5,7 @@ import neurex.ann.Attribute;
 import neurex.ann.NeuralNet;
 import neurex.ann.Pattern;
 import neurex.ann.TrainingSet;
+import neurex.gui.I18n;
 import neurex.gui.MainFrame;
 
 import javax.swing.*;
@@ -28,6 +29,8 @@ public class Main {
             }
         }
 
+        I18n.configureSwingDefaults();
+
         Attribute[][] attributes = getAttributes();
         Pattern[] patterns = getPatterns();
         TrainingSet training = new TrainingSet(patterns);
@@ -41,14 +44,14 @@ public class Main {
     }
 
     private static Attribute[][] getAttributes() {
-        Attribute in1 = new Attribute("Fever",37.0,42.0);
-        Attribute in2 = new Attribute("Cough",0,1);
-        Attribute in3 = new Attribute("Headache",0,100);
-        Attribute in4 = new Attribute("Fatigue",0,1);
-        Attribute in5 = new Attribute("Night Sweat",0,1);
-        Attribute out1 = new Attribute("Pneumonia",0,100);
-        Attribute out2 = new Attribute("Flu",0,100);
-        Attribute out3 = new Attribute("Cold",0,100);
+        Attribute in1 = new Attribute(I18n.text("sample.fever"),37.0,42.0);
+        Attribute in2 = new Attribute(I18n.text("sample.cough"),0,1);
+        Attribute in3 = new Attribute(I18n.text("sample.headache"),0,100);
+        Attribute in4 = new Attribute(I18n.text("sample.fatigue"),0,1);
+        Attribute in5 = new Attribute(I18n.text("sample.nightSweat"),0,1);
+        Attribute out1 = new Attribute(I18n.text("sample.pneumonia"),0,100);
+        Attribute out2 = new Attribute(I18n.text("sample.flu"),0,100);
+        Attribute out3 = new Attribute(I18n.text("sample.cold"),0,100);
 
         return new Attribute[][]{
                 {in1, in2, in3, in4, in5},

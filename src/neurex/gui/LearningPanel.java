@@ -6,11 +6,15 @@ import neurex.ann.TrainingSet;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serial;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.text.ParseException;
 
 public class LearningPanel extends JPanel implements ANNUpdateListener {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     MainFrame main;
     private JTextField learningCoeffField;
     private JTextField cyclesField;
@@ -21,17 +25,17 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
     private JLabel statusField;
 
 
+    @SuppressWarnings("this-escape")
     public LearningPanel(MainFrame main) {
         this.main = main;
-        this.main.addUpdateListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Neural Net Topology");
+        JLabel titleLabel = new JLabel(I18n.text("panel.learning.title"));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
-        JLabel subtitleLabel = new JLabel("Specification");
+        JLabel subtitleLabel = new JLabel(I18n.text("panel.learning.subtitle"));
         subtitleLabel.setFont(new Font(subtitleLabel.getFont().getName(), Font.BOLD, 14));
 
         JPanel centerPanel = new JPanel(new GridBagLayout());
@@ -47,12 +51,12 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
         JPanel worstErrorPanel = createWorstErrorPanel();
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-        JButton learnButton = new JButton("Start Learning");
+        JButton learnButton = new JButton(I18n.text("panel.learning.start"));
         learnButton.addActionListener(e -> {
             learnNetwork();
             main.changeModel();
         });
-        JButton resetButton = new JButton("Reset");
+        JButton resetButton = new JButton(I18n.text("panel.learning.reset"));
         resetButton.addActionListener(e -> {
             resetNetwork();
             main.changeModel();
@@ -60,7 +64,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
         buttonPanel.add(learnButton);
         buttonPanel.add(resetButton);
 
-        statusField = new JLabel("Waiting to be learned.");
+        statusField = new JLabel(I18n.text("panel.learning.waiting"));
 
         JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
         separator.setPreferredSize(new Dimension(450, 10));
@@ -86,7 +90,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
 
     private JPanel createLearningCoeffPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Learning Coefficient"));
+        panel.add(new JLabel(I18n.text("panel.learning.coefficient")));
         learningCoeffField = new JTextField(15);
         learningCoeffField.setText("0.3");
         panel.add(learningCoeffField);
@@ -95,7 +99,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
 
     private JPanel createCyclesPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Learning Cycles"));
+        panel.add(new JLabel(I18n.text("panel.learning.cycles")));
         cyclesField = new JTextField(15);
         cyclesField.setText("10000");
         panel.add(cyclesField);
@@ -104,7 +108,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
 
     private JPanel createErrorPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Mean Squared Error"));
+        panel.add(new JLabel(I18n.text("panel.learning.error")));
         double error = (double) main.ann.meanSquaredError()[0];
         float rounded = Math.round(error * 100.0) / 100f;
         errorField = new JTextField(15);
@@ -116,7 +120,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
 
     private JPanel createWorstPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Worst Pattern Index"));
+        panel.add(new JLabel(I18n.text("panel.learning.worstPattern")));
         int worst = (int) main.ann.meanSquaredError()[2]+1;
         worstField = new JTextField(15);
         worstField.setText(String.valueOf(worst));
@@ -127,7 +131,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
 
     private JPanel createWorstErrorPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Worst Pattern Error [%]"));
+        panel.add(new JLabel(I18n.text("panel.learning.worstError")));
         double error = (double) main.ann.meanSquaredError()[1];
         float rounded = Math.round(error * 100.0) / 100f;
         worstErrorField = new JTextField(15);
@@ -138,7 +142,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
     }
 
     public void learnNetwork() {
-        statusField.setText("Neural network learning ...");
+        statusField.setText(I18n.text("panel.learning.learning"));
         double learningCoefficient;
         int cycles;
         try {
@@ -148,7 +152,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Learning coefficient must be bigger than 0 and should smaller that 1.", "Input data error.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, I18n.text("panel.learning.coefficientError"), I18n.text("dialog.inputError.title"), JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -157,11 +161,11 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Number of cycles must be bigger than 1.", "Input data error.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, I18n.text("panel.learning.cyclesError"), I18n.text("dialog.inputError.title"), JOptionPane.ERROR_MESSAGE);
             return;
         }
         main.ann.learn(learningCoefficient, cycles);
-        statusField.setText("Neural network learned.");
+        statusField.setText(I18n.text("panel.learning.learned"));
     }
 
     @SuppressWarnings("unused")
@@ -182,7 +186,7 @@ public class LearningPanel extends JPanel implements ANNUpdateListener {
         TrainingSet trainingSet = main.ann.trainingSet;
         int hidden = main.ann.hidden;
         main.ann = new NeuralNet(attributes, trainingSet, hidden);
-        statusField.setText("Waiting to be learned.");
+        statusField.setText(I18n.text("panel.learning.waiting"));
     }
 
     public void onANNUpdated() {

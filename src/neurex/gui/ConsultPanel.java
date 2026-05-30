@@ -8,9 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import java.util.Collections;
 
 public class ConsultPanel extends JPanel implements ANNUpdateListener {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     MainFrame main;
     private final DefaultListModel<AttributePair> inputListModel;
     private final DefaultListModel<AttributePair> outputListModel;
@@ -18,13 +22,13 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
     @SuppressWarnings("FieldCanBeLocal")
     private final JList<AttributePair> outputList;
 
+    @SuppressWarnings("this-escape")
     public ConsultPanel(MainFrame main) {
         this.main = main;
-        this.main.addUpdateListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Neural Net Inferrencing");
+        JLabel titleLabel = new JLabel(I18n.text("panel.consult.title"));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
@@ -34,9 +38,9 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
 
-        JLabel inputLabel = new JLabel("Input");
+        JLabel inputLabel = new JLabel(I18n.text("label.input"));
         inputLabel.setFont(new Font(inputLabel.getFont().getName(), Font.BOLD, 14));
-        JLabel outputLabel = new JLabel("Output");
+        JLabel outputLabel = new JLabel(I18n.text("label.output"));
         outputLabel.setFont(new Font(outputLabel.getFont().getName(), Font.BOLD, 14));
         JPanel settingsPanel = new JPanel(new GridLayout(1, 2));
         settingsPanel.add(inputLabel);
@@ -65,12 +69,12 @@ public class ConsultPanel extends JPanel implements ANNUpdateListener {
         attributesPanel.add(outputScrollPanel);
 
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2));
-        JButton resetButton = new JButton("Reset Input");
+        JButton resetButton = new JButton(I18n.text("panel.consult.resetInput"));
         resetButton.addActionListener(e -> {
             updateInputList();
             consult();
         });
-        JButton addButton = new JButton("Add as a New Pattern");
+        JButton addButton = new JButton(I18n.text("panel.consult.addPattern"));
         addButton.addActionListener(e -> addAsPattern());
         buttonsPanel.add(resetButton);
         buttonsPanel.add(addButton);

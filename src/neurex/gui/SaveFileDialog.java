@@ -12,9 +12,11 @@ public class SaveFileDialog {
         //fileChooser.setCurrentDirectory(new File(System.getProperty(".")));
         fileChooser.setCurrentDirectory(new File("."));
         fileChooser.setSelectedFile(new File(main.filename));
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("neurex files", "neux"));
-        fileChooser.setDialogTitle("Save Project");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(I18n.text("file.filter.neurex"), "neux"));
+        fileChooser.setDialogTitle(I18n.text("file.save.title"));
         fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        fileChooser.setApproveButtonText(I18n.text("file.save.button"));
+        fileChooser.setApproveButtonToolTipText(I18n.text("file.save.tooltip"));
 
         int userSelection = fileChooser.showSaveDialog(null);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
@@ -29,4 +31,3 @@ public class SaveFileDialog {
         }
     }
 }
-

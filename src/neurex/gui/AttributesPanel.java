@@ -4,22 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 
 
 public class AttributesPanel extends JPanel implements ANNUpdateListener {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     MainFrame main;
     private final DefaultListModel<Attribute> inputListModel;
     private final DefaultListModel<Attribute> outputListModel;
     private final JList<Attribute> inputAttributeList;
     private final JList<Attribute> outputAttributeList;
 
+    @SuppressWarnings("this-escape")
     public AttributesPanel(MainFrame main) {
         this.main = main;
-        this.main.addUpdateListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Input and Output Attributes");
+        JLabel titleLabel = new JLabel(I18n.text("panel.attributes.title"));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
@@ -29,9 +33,9 @@ public class AttributesPanel extends JPanel implements ANNUpdateListener {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
 
-        JLabel inputLabel = new JLabel("Input");
+        JLabel inputLabel = new JLabel(I18n.text("label.input"));
         inputLabel.setFont(new Font(inputLabel.getFont().getName(), Font.BOLD, 14));
-        JLabel outputLabel = new JLabel("Output");
+        JLabel outputLabel = new JLabel(I18n.text("label.output"));
         outputLabel.setFont(new Font(outputLabel.getFont().getName(), Font.BOLD, 14));
         JPanel settingsPanel = new JPanel(new GridLayout(1, 2));
         settingsPanel.add(inputLabel);

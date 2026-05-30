@@ -5,15 +5,19 @@ import neurex.ann.Attribute;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.Serial;
 
 class AttributeEditDialog extends JDialog {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final JTextField attributeNameField;
     private final JTextField minValueField;
     private final JTextField maxValueField;
     private boolean confirmed = false;
 
     public AttributeEditDialog(JFrame parent, Attribute attribute) {
-        super(parent, "Edit Attribute", true);
+        super(parent, I18n.text("dialog.attribute.title"), true);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(4, 2));
 
@@ -21,15 +25,15 @@ class AttributeEditDialog extends JDialog {
         minValueField = new JTextField(String.valueOf(attribute.minValue));
         maxValueField = new JTextField(String.valueOf(attribute.maxValue));
 
-        panel.add(new JLabel("Attribute Name:  "));
+        panel.add(new JLabel(I18n.text("dialog.attribute.name")));
         panel.add(attributeNameField);
-        panel.add(new JLabel("Min Value:"));
+        panel.add(new JLabel(I18n.text("dialog.attribute.min")));
         panel.add(minValueField);
-        panel.add(new JLabel("Max Value:"));
+        panel.add(new JLabel(I18n.text("dialog.attribute.max")));
         panel.add(maxValueField);
 
-        JButton okButton = new JButton("OK");
-        JButton cancelButton = new JButton("Cancel");
+        JButton okButton = new JButton(I18n.text("dialog.ok"));
+        JButton cancelButton = new JButton(I18n.text("dialog.cancel"));
 
         okButton.addActionListener(e -> {
             try {
@@ -44,7 +48,7 @@ class AttributeEditDialog extends JDialog {
                     maxValueField.setText(minValueText);
                 }
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Min and Max Values must be numbers.", "Input data error.", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, I18n.text("dialog.attribute.numberError"), I18n.text("dialog.inputError.title"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             confirmed = true;

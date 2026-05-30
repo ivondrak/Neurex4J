@@ -5,15 +5,20 @@ import neurex.ann.AttributePair;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.Serial;
 
 public class ValueEditDialog extends JDialog {
-    public AttributePair pair;
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    public transient AttributePair pair;
     private final JLabel valueField;
     private final JSlider slider;
     private boolean confirmed = false;
 
+    @SuppressWarnings("this-escape")
     public ValueEditDialog(JFrame parent, AttributePair pair) {
-        super(parent, "Edit Fact Value", true);
+        super(parent, I18n.text("dialog.value.title"), true);
 
         this.pair = new AttributePair(pair.attribute, pair.value);
         JPanel panel = new JPanel();
@@ -35,11 +40,11 @@ public class ValueEditDialog extends JDialog {
 
         panel.add(attributeField);
         panel.add(valueField);
-        panel.add(new JLabel("Set the value of the fact:"));
+        panel.add(new JLabel(I18n.text("dialog.value.set")));
         panel.add(slider);
 
-        JButton okButton = new JButton("OK");
-        JButton cancelButton = new JButton("Cancel");
+        JButton okButton = new JButton(I18n.text("dialog.ok"));
+        JButton cancelButton = new JButton(I18n.text("dialog.cancel"));
 
         okButton.addActionListener(e -> {
             this.pair.value = slider.getValue()/100.0;

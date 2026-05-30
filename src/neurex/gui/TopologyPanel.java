@@ -2,24 +2,29 @@ package neurex.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serial;
 
 public class TopologyPanel extends JPanel implements ANNUpdateListener {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private static final Dimension SPECIFICATION_ROW_SIZE = new Dimension(420, 28);
+
     MainFrame main;
 
     JTextField topologyLabel;
     JTextField patternsLabel;
     JTextField errorLabel;
 
+    @SuppressWarnings("this-escape")
     public TopologyPanel(MainFrame main) {
         this.main = main;
-        this.main.addUpdateListener(this);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Neural Net Topology");
+        JLabel titleLabel = new JLabel(I18n.text("panel.topology.title"));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
-        JLabel subtitleLabel = new JLabel("Specification");
+        JLabel subtitleLabel = new JLabel(I18n.text("panel.topology.subtitle"));
         subtitleLabel.setFont(new Font(subtitleLabel.getFont().getName(), Font.BOLD, 14));
 
         JPanel centerPanel = new JPanel(new GridBagLayout());
@@ -45,8 +50,8 @@ public class TopologyPanel extends JPanel implements ANNUpdateListener {
     }
 
     private JPanel createTopologyPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Topology"));
+        JPanel panel = createSpecificationRow();
+        panel.add(createSpecificationLabel(I18n.text("panel.topology.topology")));
         StringBuilder topology;
         topology = new StringBuilder(String.valueOf(main.ann.inputSize));
         for (int i=0; i < (main.ann.hidden + 1); i++) {
@@ -62,8 +67,8 @@ public class TopologyPanel extends JPanel implements ANNUpdateListener {
     }
 
     private JPanel createPatternsPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Number of Patterns"));
+        JPanel panel = createSpecificationRow();
+        panel.add(createSpecificationLabel(I18n.text("panel.topology.patterns")));
         patternsLabel = new JTextField(12);
         patternsLabel.setText(String.valueOf(main.ann.trainingSet.patterns.length));
         patternsLabel.setEnabled(false);
@@ -72,8 +77,8 @@ public class TopologyPanel extends JPanel implements ANNUpdateListener {
     }
 
     private JPanel createErrorPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new JLabel("Mean Squared Error"));
+        JPanel panel = createSpecificationRow();
+        panel.add(createSpecificationLabel(I18n.text("panel.topology.error")));
         double error = (double) main.ann.meanSquaredError()[0];
         double rounded = Math.round(error * 100.0) / 100.0;
         errorLabel = new JTextField(12);
@@ -81,6 +86,20 @@ public class TopologyPanel extends JPanel implements ANNUpdateListener {
         errorLabel.setEnabled(false);
         panel.add(errorLabel);
         return panel;
+    }
+
+    private JPanel createSpecificationRow() {
+        JPanel panel = new JPanel(new GridLayout(1, 2));
+        panel.setPreferredSize(SPECIFICATION_ROW_SIZE);
+        panel.setMinimumSize(SPECIFICATION_ROW_SIZE);
+        panel.setMaximumSize(SPECIFICATION_ROW_SIZE);
+        return panel;
+    }
+
+    private JLabel createSpecificationLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        return label;
     }
 
     public void onANNUpdated() {

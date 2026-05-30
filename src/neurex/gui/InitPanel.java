@@ -7,24 +7,28 @@ import neurex.ann.TrainingSet;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serial;
 
 public class InitPanel extends JPanel implements ANNUpdateListener {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     MainFrame main;
     private JTextField numberOfInputsField;
     private JTextField numberOfOutputsField;
     private JTextField hiddenLayersField;
 
 
+    @SuppressWarnings("this-escape")
     public InitPanel(MainFrame main) {
         this.main = main;
-        this.main.addUpdateListener(this);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Initialize New Neural Net");
+        JLabel titleLabel = new JLabel(I18n.text("panel.init.title"));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
-        JLabel subtitleLabel = new JLabel("Setting");
+        JLabel subtitleLabel = new JLabel(I18n.text("panel.init.subtitle"));
         subtitleLabel.setFont(new Font(subtitleLabel.getFont().getName(), Font.BOLD, 14));
 
         JPanel centerPanel = new JPanel(new GridBagLayout());
@@ -33,11 +37,11 @@ public class InitPanel extends JPanel implements ANNUpdateListener {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
 
-        JPanel inputPanel = createInputPanel("Number of Inputs");
-        JPanel outputPanel = createInputPanel("Number of Outputs");
-        JPanel layersPanel = createInputPanel("Hidden Layers");
+        JPanel inputPanel = createInputPanel(I18n.text("panel.init.inputs"), 0);
+        JPanel outputPanel = createInputPanel(I18n.text("panel.init.outputs"), 1);
+        JPanel layersPanel = createInputPanel(I18n.text("panel.init.hiddenLayers"), 2);
 
-        JButton initButton = new JButton("Initialize");
+        JButton initButton = new JButton(I18n.text("panel.init.initialize"));
         initButton.addActionListener(e -> initializeNetwork());
 
         JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
@@ -58,23 +62,23 @@ public class InitPanel extends JPanel implements ANNUpdateListener {
         this.main.getRootPane().setDefaultButton(initButton);
     }
 
-    private JPanel createInputPanel(String label) {
+    private JPanel createInputPanel(String label, int fieldType) {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.add(new JLabel(label));
-        switch (label) {
-            case "Number of Inputs": {
+        switch (fieldType) {
+            case 0: {
                 numberOfInputsField = new JTextField(10);
                 numberOfInputsField.setText("1");
                 panel.add(numberOfInputsField);
                 break;
             }
-            case "Number of Outputs": {
+            case 1: {
                 numberOfOutputsField = new JTextField(10);
                 numberOfOutputsField.setText("1");
                 panel.add(numberOfOutputsField);
                 break;
             }
-            case "Hidden Layers": {
+            case 2: {
                 hiddenLayersField = new JTextField(10);
                 hiddenLayersField.setText("2");
                 panel.add(hiddenLayersField);
@@ -94,33 +98,33 @@ public class InitPanel extends JPanel implements ANNUpdateListener {
             numberOfInputs = Integer.parseInt(numberOfInputsField.getText());
             if (numberOfInputs < 1) return;
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Number of inputs must be bigger than 1.", "Input data error.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, I18n.text("validation.inputs"), I18n.text("dialog.inputError.title"), JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
             numberOfOutputs = Integer.parseInt(numberOfOutputsField.getText());
             if (numberOfOutputs < 1) return;
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Number of outputs must be bigger than 1.", "Input data error.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, I18n.text("validation.outputs"), I18n.text("dialog.inputError.title"), JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
             hiddenLayers = Integer.parseInt(hiddenLayersField.getText());
             if (hiddenLayers < 0) return;
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Number of hidden layers must be bigger than 0.", "Input data error.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, I18n.text("validation.hiddenLayers"), I18n.text("dialog.inputError.title"), JOptionPane.ERROR_MESSAGE);
             return;
         }
         Attribute[] inputAttributes = new Attribute[numberOfInputs];
         for (int i=0; i < numberOfInputs; i++) {
             Attribute attribute = new Attribute();
-            attribute.attribute = "Input "+"#"+i;
+            attribute.attribute = I18n.text("panel.init.defaultInput") + " #" + i;
             inputAttributes[i] = attribute;
         }
         Attribute[] outputAttributes = new Attribute[numberOfOutputs];
         for (int i=0; i < numberOfOutputs; i++) {
             Attribute attribute = new Attribute();
-            attribute.attribute = "Output "+"#"+i;
+            attribute.attribute = I18n.text("panel.init.defaultOutput") + " #" + i;
             outputAttributes[i] = attribute;
         }
         Attribute[][] attributes = {inputAttributes, outputAttributes};

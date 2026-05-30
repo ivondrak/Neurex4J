@@ -7,8 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 
 public class PatternsPanel extends JPanel implements ANNUpdateListener {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     MainFrame main;
     private final DefaultListModel<AttributePair> inputListModel;
     private final DefaultListModel<AttributePair> outputListModel;
@@ -17,13 +21,13 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
     public final JSlider slider;
     private final JLabel indexLabel;
 
+    @SuppressWarnings("this-escape")
     public PatternsPanel(MainFrame main) {
         this.main = main;
-        this.main.addUpdateListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Training Set Patterns");
+        JLabel titleLabel = new JLabel(I18n.text("panel.patterns.title"));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
 
@@ -33,9 +37,9 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
 
-        JLabel inputLabel = new JLabel("Input");
+        JLabel inputLabel = new JLabel(I18n.text("label.input"));
         inputLabel.setFont(new Font(inputLabel.getFont().getName(), Font.BOLD, 14));
-        JLabel outputLabel = new JLabel("Output");
+        JLabel outputLabel = new JLabel(I18n.text("label.output"));
         outputLabel.setFont(new Font(outputLabel.getFont().getName(), Font.BOLD, 14));
         JPanel settingsPanel = new JPanel(new GridLayout(1, 2));
         settingsPanel.add(inputLabel);
@@ -66,7 +70,7 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
         slider = new JSlider(0, main.ann.trainingSet.patterns.length-1);
         slider.setValue(0);
         JPanel flowPanel = new JPanel(new FlowLayout());
-        JLabel patternLabel = new JLabel("Pattern:");
+        JLabel patternLabel = new JLabel(I18n.text("panel.patterns.pattern"));
         indexLabel = new JLabel(String.valueOf(slider.getValue()+1));
         flowPanel.add(patternLabel);
         flowPanel.add(indexLabel);
@@ -81,13 +85,13 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
         });
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-        JButton addButton = new JButton("Add Pattern");
+        JButton addButton = new JButton(I18n.text("panel.patterns.add"));
         addButton.addActionListener(e -> {
             addPattern();
             updateInputList();
             updateOutputList();
         });
-        JButton removeButton = new JButton("Remove Pattern");
+        JButton removeButton = new JButton(I18n.text("panel.patterns.remove"));
         removeButton.addActionListener(e -> {
             removePattern();
             updateInputList();
@@ -218,7 +222,7 @@ public class PatternsPanel extends JPanel implements ANNUpdateListener {
             slider.setValue(0);
             indexLabel.setText(String.valueOf(1));
         } else {
-            JOptionPane.showMessageDialog(null, "Number of patterns must be bigger than 2.", "Delete Pattern Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, I18n.text("panel.patterns.deleteError.message"), I18n.text("panel.patterns.deleteError.title"), JOptionPane.ERROR_MESSAGE);
         }
     }
 
